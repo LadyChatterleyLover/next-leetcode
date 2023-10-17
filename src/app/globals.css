@@ -15,3 +15,7 @@ html,
 body {
   height: 100%;
 }
+.answer-code pre,
+.editor-code pre {
+  background: none !important;
+}

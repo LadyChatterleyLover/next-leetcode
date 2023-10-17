@@ -4,7 +4,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import Markdown from 'react-markdown'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 
 const Answer = () => {
   const searchParams = useSearchParams()
@@ -73,8 +73,8 @@ const Answer = () => {
             <div className="text-caption px-4 py-2 font-medium text-[##1a1a1a]">
               {result.langVerboseName}
             </div>
-            <div className="px-4 py-2">
-              <Markdown>{result.code}</Markdown>
+            <div className="px-4 py-2 answer-code">
+              <SyntaxHighlighter language={result.lang}>{result.code}</SyntaxHighlighter>
             </div>
           </div>
         </div>
