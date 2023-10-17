@@ -32,7 +32,10 @@ export async function POST(req: Request) {
     return NextResponse.json({
       code: 200,
       msg: '获取成功',
-      data: res.data,
+      data: {
+        result: res.data,
+        submissionId: submission_id,
+      },
     })
   } catch (err) {
     console.log('err', err)

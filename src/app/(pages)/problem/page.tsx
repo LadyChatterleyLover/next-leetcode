@@ -3,6 +3,7 @@
 import Content, { MenuItem } from '@/app/components/problemDetail/Content'
 import Editor from '@/app/components/problemDetail/Editor'
 import Header from '@/app/components/problemDetail/Header'
+import { AnswerResult } from '@/app/types'
 import axios from 'axios'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -78,6 +79,7 @@ const Problem = () => {
       ),
     },
   ])
+  const [answerResult, setAnswerResult] = useState<AnswerResult>()
 
   const getProblemDetail = useCallback(() => {
     axios
@@ -99,8 +101,8 @@ const Problem = () => {
       })
       .then(res => {
         const data = res.data
-        if (data.code === 200 && data.data) {
-          if (data.data.status_msg === 'Wrong Answer') {
+        if (data.code === 200 && data.data.result) {
+          if (data.data.result.status_msg === 'Wrong Answer') {
             items.push({
               label: '解答错误',
               key: 'answer',
@@ -120,7 +122,11 @@ const Problem = () => {
               ),
             })
             setItems([...items])
-            router.push(`${pathname}?title=${titleCn}&slugTitle=${slugTitle}&type=answer`)
+            setAnswerResult(data.data.result as AnswerResult)
+
+            router.push(
+              `${pathname}?title=${titleCn}&slugTitle=${slugTitle}&type=answer&submissionId=${data.data.submissionId}`
+            )
           }
         }
         console.log(res.data.data)

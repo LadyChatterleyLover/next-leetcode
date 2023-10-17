@@ -112,3 +112,40 @@ export interface Submission {
   title: string
   url: string
 }
+
+export interface AnswerResult {
+  code: string
+  timestamp: number
+  statusDisplay: string
+  isMine: boolean
+  runtimeDisplay: string
+  memoryDisplay: string
+  memory: string
+  lang: string
+  langVerboseName: string
+  question: {
+    questionId: string
+    titleSlug: string
+    hasFrontendPreview: boolean
+  }
+  user: {
+    realName: string
+    userAvatar: string
+    userSlug: string
+  }
+  runtimePercentile: number
+  memoryPercentile: number
+  submissionComment: string | null
+  passedTestCaseCnt: number
+  totalTestCaseCnt: number
+  fullCodeOutput: string | null
+  testDescriptions: string | null
+  outputDetail: {
+    codeOutput: string
+    expectedOutput: string
+    input: string
+    compileError: string
+    runtimeError: string
+    lastTestcase: string
+  }
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { ProblemDetail } from '@/app/types'
+import { AnswerResult, ProblemDetail } from '@/app/types'
 import { Divider } from 'antd'
 import Description from './Description'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
