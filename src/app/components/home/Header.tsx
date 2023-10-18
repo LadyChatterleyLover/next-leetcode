@@ -3,11 +3,23 @@
 import { localGet } from '@/app/utils/storage'
 import { SearchOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { UserStatus } from '@/app/types'
+import { Avatar } from 'antd'
 
 const Header = () => {
   const router = useRouter()
-  const user = localGet('leetcode-user')
+  const [user, setUser] = useState<UserStatus>()
+  const getUserStatus = () => {
+    axios.post('/api/userStatus').then(res => {
+      setUser(res.data.data)
+    })
+  }
+
+  useEffect(() => {
+    getUserStatus()
+  }, [])
 
   return (
     <div
@@ -54,7 +66,10 @@ const Header = () => {
           <SearchOutlined style={{ fontSize: 20, color: '#0000008c' }}></SearchOutlined>
           <div>
             {user ? (
-              <div>1</div>
+              <div className='flex items-center ml-1 cursor-pointer'>
+                <Avatar size={24} src={user.avatar}></Avatar>
+                <div className='text-sm mx-1'>{user.realName}</div>
+              </div>
             ) : (
               <div className='flex items-center ml-4'>
                 <div

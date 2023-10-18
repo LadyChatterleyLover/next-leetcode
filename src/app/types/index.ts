@@ -1,3 +1,20 @@
+export interface UserStatus {
+  avatar: string
+  checkedInToday: boolean
+  isAdmin: boolean
+  isPhoneVerified: boolean
+  isPremium: boolean
+  isSignedIn: boolean
+  isSuperuser: boolean
+  isTranslator: boolean
+  isVerified: boolean
+  premiumExpiredAt: number
+  realName: string
+  useTranslation: boolean
+  userSlug: string
+  username: string
+}
+
 export interface ProblemDetail {
   categoryTitle: string
   difficulty: string
