@@ -39,7 +39,7 @@ const StudyPlan = () => {
         {studyPlanList.map(item => {
           return (
             <Col key={item.slug} span={8}>
-              <Card hoverable className='flex-1'>
+              <Card hoverable className='flex-1 mb-3'>
                 <Meta
                   avatar={<Image src={item.cover} alt='' width={72} height={72} />}
                   title={item.name}
