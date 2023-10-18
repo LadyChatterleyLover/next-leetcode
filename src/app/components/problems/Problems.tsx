@@ -4,14 +4,20 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { ColumnsType } from 'antd/lib/table'
-import { Pagination, Table, Tag, Tooltip } from 'antd'
+import { Input, Pagination, Table, Tag, Tooltip } from 'antd'
 import {
   CalendarOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   MinusCircleOutlined,
+  ShareAltOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons'
+import QuestionTag from '../home/QuestionTag'
+import QuestionListTag from '../home/QuestionListTag'
+import QuestionDifficultyTag from '../home/QuestionDifficultyTag'
+import QuestionStatusTag from '../home/QuestionStatusTag'
+import QuestionAllTag from '../home/QuestionAllTag'
 
 interface ProblemItem {
   acRate: number
@@ -159,6 +165,31 @@ const Problems = () => {
 
   return (
     <div className='mt-5'>
+      <div className='flex mb-5 gap-x-2'>
+        <div className='flex-1'>
+          <QuestionListTag></QuestionListTag>
+        </div>
+        <div className='flex-1'>
+          <QuestionDifficultyTag></QuestionDifficultyTag>
+        </div>
+        <div className='flex-1'>
+          <QuestionStatusTag></QuestionStatusTag>
+        </div>
+        <div className='flex-1'>
+          <QuestionAllTag></QuestionAllTag>
+        </div>
+        <div className='flex min-w-[300px] flex-[4_4_0%] gap-2'>
+          <div className='flex-1'>
+            <Input.Search placeholder='搜索题目、编号或题号'></Input.Search>
+          </div>
+          <div className='flex items-center'>
+            <div className='flex h-8 w-8 items-center justify-center rounded-full shadow-md from-fixed-green to-[#2db55d] bg-gradient-to-b shadow-fixed-green'>
+              <ShareAltOutlined />
+            </div>
+            <div className='text-[#2db55d] hidden pl-2.5 md:inline'>随机一题</div>
+          </div>
+        </div>
+      </div>
       <Table
         rowKey='frontendQuestionId'
         columns={columns}
