@@ -29,7 +29,6 @@ const SubjectBook = ({ slug }: { slug: string }) => {
       })
       .then(res => {
         setBookList(res.data.data)
-        console.log('res', res.data.data)
       })
   }, [slug])
 
