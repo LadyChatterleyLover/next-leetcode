@@ -15,12 +15,16 @@ const Tag = () => {
   }, [params])
 
   return (
-    <div className='flex'>
+    <div className="flex">
+      <div>
       <TagWiki slug={slug}></TagWiki>
-      <div className='w-[260px] mt-[120px] ml-9'>
+      <div className="mt-5">
+        <QuestionList></QuestionList>
+      </div>
+      </div>
+      <div className="w-[260px] mt-[120px] ml-9">
         <SubjectBook slug={slug}></SubjectBook>
         <CompanyFreqInfo slug={slug}></CompanyFreqInfo>
-        <QuestionList slug={slug}></QuestionList>
       </div>
     </div>
   )
