@@ -36,7 +36,6 @@ const CompanyFreqInfo = ({ slug }: { slug: string }) => {
       .then(res => {
         setTagList(res.data.data.tags)
         setPercent((res.data.data.overallFrequency.maxFreq / res.data.data.overallFrequency.globalMaxFreq) * 100)
-        console.log('res', res.data.data)
       })
   }, [slug])
 
@@ -52,7 +51,7 @@ const CompanyFreqInfo = ({ slug }: { slug: string }) => {
       >
         <div className='mb-4 text-sm leading-5 text-[#262626bf] font-500'>知识点出题频率</div>
         <div className='flex items-center'>
-          <Progress percent={percent} showInfo={false} strokeColor='#ffa116' strokeWidth={16}></Progress>
+          <Progress percent={percent} showInfo={false} strokeColor='#ffa116' size={16}></Progress>
           <div className='text-[#ffa116] relative top-[-2px]'>
             {percent >= 0 && percent <= 30 ? '低' : percent > 30 && percent <= 60 ? '中' : '高'}
           </div>

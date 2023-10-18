@@ -27,6 +27,26 @@ export interface ProblemDetail {
   titleSlug: string
 }
 
+export interface ProblemItem {
+  acRate: number
+  difficulty: string
+  freqBar: string | null
+  frontendQuestionId: string
+  hasVideoSolution: boolean
+  isFavor: boolean
+  paidOnly: boolean
+  questionId: string
+  solutionNum: number
+  status: string | null
+  title: string
+  titleCn: string
+  titleSlug: string
+  extra: {
+    companyTagNum: number
+    hasVideoSolution: boolean
+  }
+}
+
 export interface CommentPost {
   content: string
   creationDate: number
