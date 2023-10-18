@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Card } from 'antd'
+import { Card, Col, Row } from 'antd'
 import Image from 'next/image'
 
 const { Meta } = Card
@@ -34,20 +34,22 @@ const StudyPlan = () => {
   }, [studyPlanList])
   return (
     <div>
-      <div className='text-xl font-500 text-[#1a1a1abf]'>精选推荐</div>
-      <div className='mt-7 flex flex-wrap gap-3'>
+      <div className='text-xl font-500 text-[#1a1a1abf] mb-3 h-7'>精选推荐</div>
+      <Row wrap gutter={20}>
         {studyPlanList.map(item => {
           return (
-            <Card hoverable key={item.slug} className='w-[30%]'>
-              <Meta
-                avatar={<Image src={item.cover} alt='' width={72} height={72} />}
-                title={item.name}
-                description={item.highlight}
-              />
-            </Card>
+            <Col key={item.slug} span={8}>
+              <Card hoverable className='flex-1'>
+                <Meta
+                  avatar={<Image src={item.cover} alt='' width={72} height={72} />}
+                  title={item.name}
+                  description={item.highlight}
+                />
+              </Card>
+            </Col>
           )
         })}
-      </div>
+      </Row>
     </div>
   )
 }
