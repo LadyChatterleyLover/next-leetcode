@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['assets.leetcode.cn', 'static.leetcode-cn.com'],
+    domains: ['assets.leetcode.cn', 'static.leetcode-cn.com', 'static.leetcode.cn'],
   },
 }
 

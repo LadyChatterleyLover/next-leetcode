@@ -19,3 +19,7 @@ body {
 .editor-code pre {
   background: none !important;
 }
+
+.tag-wiki img {
+  max-width: 100% !important;
+}
