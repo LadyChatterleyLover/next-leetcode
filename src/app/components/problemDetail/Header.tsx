@@ -12,10 +12,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 interface Props {
+  loading: boolean
   submit: () => void
 }
 
-const Header: React.FC<Props> = ({ submit }) => {
+const Header: React.FC<Props> = ({ loading, submit }) => {
   return (
     <div className='z-nav-1 relative flex h-[50px] w-full shrink-0 items-center px-5 bg-white'>
       <div className='flex w-full h-full justify-between items-center'>
@@ -47,8 +48,8 @@ const Header: React.FC<Props> = ({ submit }) => {
           </div>
         </div>
         <div>
-          <Button size='small' type='primary' icon={<CloudUploadOutlined />} onClick={submit}>
-            提交
+          <Button size='small' type='primary' icon={<CloudUploadOutlined />} loading={loading} onClick={submit}>
+            {loading ? '判题中' : '提交'}
           </Button>
         </div>
         <div>1</div>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import Fullscreen from './Fullscreen'
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
+import { localSet } from '@/app/utils/storage'
 
 const TestCase = () => {
   const searchParams = useSearchParams()
@@ -25,10 +26,7 @@ const TestCase = () => {
         cases = cases.map((item: string) => {
           return item.split('\n')
         })
-        const list = allParams.map((item: { name: string }, index: number) => ({
-          name: item.name,
-          content: cases[activeIndex][index],
-        }))
+        localSet('questionParams', allParams)
         setJsonExampleTestcases(JSON.parse(data.jsonExampleTestcases))
         setParams(allParams)
       })
@@ -47,6 +45,7 @@ const TestCase = () => {
       name: item.name,
       content: cases[activeIndex][index],
     }))
+
     return list
   }, [activeIndex, jsonExampleTestcases, params])
 

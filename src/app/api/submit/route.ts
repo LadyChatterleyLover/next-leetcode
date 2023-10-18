@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 async function sleep() {
   return new Promise(function (resolve) {
-    setTimeout(resolve, 1000)
+    setTimeout(resolve, 1500)
   })
 }
 
