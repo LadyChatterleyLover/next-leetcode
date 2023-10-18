@@ -5,6 +5,7 @@ import { SyncOutlined, TabletOutlined } from '@ant-design/icons'
 import { OptionItem } from '../problemDetail/Editor'
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import Fullscreen from './Fullscreen'
+import { localGet, localSet } from '@/app/utils/storage'
 
 interface Props {
   codeSnippets: OptionItem[]
@@ -13,10 +14,10 @@ interface Props {
 
 const Header = forwardRef((_props: Props, _ref: any) => {
   const { codeSnippets, setCurrentCode } = _props
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(localGet('currentCode') || '')
 
   useEffect(() => {
-    if (codeSnippets.length) {
+    if (codeSnippets.length && !localGet('currentCode')) {
       setValue(codeSnippets[0].value)
     }
   }, [codeSnippets])
@@ -59,6 +60,7 @@ const Header = forwardRef((_props: Props, _ref: any) => {
             onChange={val => {
               setCurrentCode(val)
               setValue(val)
+              localSet('currentCode', val)
             }}
           ></Select>
         ) : null}

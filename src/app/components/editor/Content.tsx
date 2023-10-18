@@ -29,7 +29,7 @@ const Content = forwardRef((_props: Props, _ref: any) => {
       {currentCodeItem ? (
         <Editor
           height={height * 0.5 + 'px'}
-          language={currentCodeItem.lang}
+          language={currentCodeItem.lang.toLowerCase()}
           value={currentCodeItem.code}
           onMount={editor => {
             editorRef.current = editor

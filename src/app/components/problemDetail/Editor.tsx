@@ -4,6 +4,7 @@ import axios from 'axios'
 import Header from '../editor/Header'
 import Content from '../editor/Content'
 import TestCase from '../editor/TestCase'
+import { localGet } from '@/app/utils/storage'
 
 export interface Code {
   code: string
@@ -25,7 +26,7 @@ const Editor = forwardRef((_props: any, _ref: any) => {
 
   const [codeSnippets, setCodeSnippets] = useState<OptionItem[]>([])
   const [codeList, setCodeList] = useState<Code[]>([])
-  const [currentCode, setCurrentCode] = useState('')
+  const [currentCode, setCurrentCode] = useState(localGet('currentCode') || '')
   const headerRef = useRef<any>()
   const contentRef = useRef<any>()
 
@@ -47,7 +48,9 @@ const Editor = forwardRef((_props: any, _ref: any) => {
             label: item.lang,
           }))
         )
-        setCurrentCode(res.data.data[0].langSlug)
+        if (!localGet('currentCode')) {
+          setCurrentCode(res.data.data[0].langSlug)
+        }
       })
   }, [titleSlug, setCodeSnippets])
 
@@ -70,6 +73,9 @@ const Editor = forwardRef((_props: any, _ref: any) => {
       <div className='py-5 flex flex-col'>
         <div>
           <Content ref={contentRef} currentCodeItem={currentCodeItem!}></Content>
+          <div className='flex justify-between px-3 py-1'>
+            <div className='text-caption flex items-center gap-2 text-xs text-[#00000057]'>已存储至本地</div>
+          </div>
         </div>
         <div className='bg-[#f0f0f0] h-3 w-full'></div>
         <div className='bg-white p-5'>
