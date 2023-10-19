@@ -1,7 +1,10 @@
+'use client'
+
 import { LeetBook, SubCategory } from '@/app/types'
 import { Avatar, Card, Col, Divider, Popover, Row } from 'antd'
 import Image from 'next/image'
 import { EyeOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
 
 interface Props {
   bookList: SubCategory[]
@@ -48,7 +51,10 @@ const CategoryDetail: React.FC<Props> = ({ bookList }) => {
                       <Col
                         span={8}
                         key={book.id}
-                        className="mb-5">
+                        className="mb-5"
+                        onClick={() => {
+                          window.open(`${window.location.href}leetbook/${book.slug}`)
+                        }}>
                         <Card hoverable>
                           <div className="flex gap-x-4">
                             <Image
