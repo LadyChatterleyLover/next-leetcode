@@ -263,3 +263,64 @@ export interface Book {
     __typename: string
   }[]
 }
+
+export interface SubCategory {
+  bookIds: string
+  id: string
+  name: string
+  ids: number[]
+  bookList: LeetBook[]
+  __typename: string
+}
+
+export interface Category {
+  id: string
+  name: string
+  subcategories: SubCategory[]
+}
+
+export interface LeetBook {
+  chapterNum: number
+  author: {
+    bio: string
+    title: string
+    user: {
+      realName: string
+      userSlug: string
+      userAvatar: string
+      __typename: string
+    }
+  }
+  commonTags: {
+    name: string
+    nameTranslated: string
+    slug: string
+    __typename: string
+  }[]
+  coverImg: string
+  description: string
+  forSaleAt: string
+  id: string
+  lastNewPageForSaleAt: string
+  ownedType: string
+  pageNum: number
+  productInfo: {
+    premiumOnly: boolean
+    allowBorrow: boolean
+    product: {
+      id: string
+      slug: string
+      price: number
+      premiumPrice: number
+      discounts: string | null
+      __typename: string
+    }
+    __typename: string
+  }
+  progress: string | null
+  recommendation: string
+  slug: string
+  title: string
+  totalStudied: number
+  __typename: string
+}
