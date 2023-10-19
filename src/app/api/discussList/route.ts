@@ -2,7 +2,7 @@ import axios from 'axios'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  const { slug, isFeatured = false, pageNum = 0, query = '' } = await req.json()
+  const { slug, isFeatured, pageNum, query } = await req.json()
   axios.interceptors.request.use(config => {
     config.headers.Cookie = `csrftoken=${process.env.csrftoken};LEETCODE_SESSION=${process.env.LEETCODE_SESSION}`
     return config
