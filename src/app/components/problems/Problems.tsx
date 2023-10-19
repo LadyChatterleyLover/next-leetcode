@@ -14,10 +14,10 @@ import {
   ShareAltOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons'
-import QuestionListTag from '../home/QuestionListTag'
-import QuestionDifficultyTag from '../home/QuestionDifficultyTag'
-import QuestionStatusTag from '../home/QuestionStatusTag'
-import QuestionAllTag from '../home/QuestionAllTag'
+import QuestionListTag from '../problemset/QuestionListTag'
+import QuestionDifficultyTag from '../problemset/QuestionDifficultyTag'
+import QuestionStatusTag from '../problemset/QuestionStatusTag'
+import QuestionAllTag from '../problemset/QuestionAllTag'
 import { ProblemItem } from '@/app/types'
 
 const Problems = () => {

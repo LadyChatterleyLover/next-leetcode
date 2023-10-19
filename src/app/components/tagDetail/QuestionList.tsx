@@ -10,8 +10,8 @@ import {
 } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
 import { Pagination, Progress, Table, Tag, Tooltip } from 'antd'
-import QuestionStatusTag from '../home/QuestionStatusTag'
-import QuestionDifficultyTag from '../home/QuestionDifficultyTag'
+import QuestionStatusTag from '../problemset/QuestionStatusTag'
+import QuestionDifficultyTag from '../problemset/QuestionDifficultyTag'
 
 const QuestionList = ({ slug }: { slug: string }) => {
   const router = useRouter()

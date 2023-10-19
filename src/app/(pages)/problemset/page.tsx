@@ -1,7 +1,7 @@
 import Problems from '../../components/problems/Problems'
 import Tags from '../../components/tags/Tags'
 import StudyPlan from '../../components/studyPlan/StudyPlan'
-import CompanyTag from '../../components/home/CompanyTag'
+import CompanyTag from '../../components/problemset/CompanyTag'
 
 export default function Home() {
   return (
