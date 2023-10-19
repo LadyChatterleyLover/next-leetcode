@@ -16,7 +16,7 @@ const Tag = () => {
     return params.slug as string
   }, [params])
 
-  const [currentIndex, setCurrentIndex] = useState(1)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const tabs = [
     {
       name: '题库',

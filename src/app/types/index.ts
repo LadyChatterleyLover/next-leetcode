@@ -195,6 +195,7 @@ export interface DiscussItem {
   byLeetcode: boolean
   canEdit: boolean
   content: string
+  ipRegion: string
   contentAuthor: {
     avatar: string
     realName: string
