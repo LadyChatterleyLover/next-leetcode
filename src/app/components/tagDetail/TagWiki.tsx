@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import Image from 'next/image'
 import Markdown from 'react-markdown'
@@ -39,7 +38,7 @@ const TagWiki = ({ slug }: { slug: string }) => {
   }, [getTagWiki])
 
   return (
-    <div className='flex-1 h-full'>
+    <div className='flex-1'>
       <div className='flex items-center my-8'>
         <Image
           alt='logo'

@@ -41,6 +41,7 @@ export interface ProblemItem {
   title: string
   titleCn: string
   titleSlug: string
+  translatedTitle: string
   extra: {
     companyTagNum: number
     hasVideoSolution: boolean

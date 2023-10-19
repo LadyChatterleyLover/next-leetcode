@@ -39,7 +39,7 @@ const SubjectBook = ({ slug }: { slug: string }) => {
   return (
     bookList.length && (
       <div
-        className='bg-white px-3 py-4 rounded-lg'
+        className='bg-white px-3 py-4 rounded-lg w-[260px]'
         style={{ boxShadow: '0 2px 8px rgba(0,0,0, 0.08),0 1px 2px rgba(0,0,0, 0.1)' }}
       >
         {bookList.map(item => {

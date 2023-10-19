@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { ProblemItem } from '@/app/types'
 import { ColumnsType } from 'antd/lib/table'
@@ -7,21 +7,39 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   MinusCircleOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
-import { Table, Tag, Tooltip } from 'antd'
+import { Pagination, Progress, Table, Tag, Tooltip } from 'antd'
+import QuestionStatusTag from '../home/QuestionStatusTag'
+import QuestionDifficultyTag from '../home/QuestionDifficultyTag'
 
 const QuestionList = ({ slug }: { slug: string }) => {
   const router = useRouter()
   const [list, setList] = useState<ProblemItem[]>([])
+  const [allList, setAllList] = useState<ProblemItem[]>([])
+  const [current, setCurrent] = useState(1)
+  const [limit, setLimit] = useState(50)
+  const [loading, setLoading] = useState(false)
+  const [total, setTotal] = useState(0)
 
-  const getProblemList = () => {
-    axios.post('/api/tagQuestionList', { slug }).then(res => {
-      const data: ProblemItem[] = res.data.data
-      setList(data)
-      console.log('data', data)
-    })
+  const completeCount = useMemo(() => {
+    return allList.filter(item => item.status?.toUpperCase() === 'AC').length
+  }, [allList])
+
+  const getProblemsList = () => {
+    setLoading(true)
+    axios
+      .post('/api/tagQuestionList', { slug })
+      .then(res => {
+        const data: ProblemItem[] = res.data.data
+        setTotal(data.length)
+        setAllList([...data])
+        setList([...data.slice((current - 1) * limit, limit * current)])
+        console.log('data', data)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const renderStatus = (status: string) => {
@@ -30,31 +48,32 @@ const QuestionList = ({ slug }: { slug: string }) => {
     }
     if (status.toUpperCase() === 'AC') {
       return (
-        <Tooltip
-          title="已解答"
-          placement="bottom"
-          arrow={false}>
+        <Tooltip title='已解答' placement='bottom' arrow={false}>
           <CheckCircleOutlined style={{ color: '#15BD66' }} />
         </Tooltip>
       )
     } else if (status.toUpperCase() === 'TRIED') {
       return (
-        <Tooltip
-          title="尝试过"
-          placement="bottom"
-          arrow={false}>
+        <Tooltip title='尝试过' placement='bottom' arrow={false}>
           <ExclamationCircleOutlined style={{ color: '#FFB800' }} />
         </Tooltip>
       )
     } else {
       return (
-        <Tooltip
-          title="未完成"
-          placement="bottom"
-          arrow={false}>
+        <Tooltip title='未完成' placement='bottom' arrow={false}>
           <MinusCircleOutlined style={{ color: '#ff2d55' }} />
         </Tooltip>
       )
+    }
+  }
+
+  const renderDifficulty = (difficulty: string) => {
+    if (difficulty.toUpperCase() === 'EASY') {
+      return <Tag color='#00af9b'>简单</Tag>
+    } else if (difficulty.toUpperCase() === 'MEDIUM') {
+      return <Tag color='#ffb800'>中等</Tag>
+    } else if (difficulty.toUpperCase() === 'HARD') {
+      return <Tag color='#ff2d55'>困难</Tag>
     }
   }
 
@@ -64,7 +83,7 @@ const QuestionList = ({ slug }: { slug: string }) => {
       dataIndex: 'status',
       key: 'status',
       render: (text, _, index) => (
-        <div className="flex items-center">
+        <div className='flex items-center'>
           {index === 0 ? <CalendarOutlined style={{ color: '#007aff' }} /> : renderStatus(text)}
         </div>
       ),
@@ -75,34 +94,27 @@ const QuestionList = ({ slug }: { slug: string }) => {
       key: 'titleCn',
       render: (_, record) => (
         <div
-          className="cursor-pointer hover:text-blue-400"
+          className='cursor-pointer hover:text-blue-400'
           onClick={() => {
-            router.push(
-              `/problem?title=${record.frontendQuestionId}. ${record.titleCn}&slugTitle=${record.titleSlug}`
-            )
-          }}>
-          {record.frontendQuestionId}. {record.titleCn}
+            router.push(`/problem?title=${record.questionId}. ${record.translatedTitle}&slugTitle=${record.titleSlug}`)
+          }}
+        >
+          {record.questionId}. {record.translatedTitle}
         </div>
       ),
-    },
-    {
-      title: '题解',
-      dataIndex: 'solutionNum',
-      key: 'solutionNum',
-      render: (_, record) => (
-        <div className="flex items-center cursor-pointer ">
-          <div className="mr-2 hover:text-blue-400">{record.solutionNum}</div>
-          {record.extra.hasVideoSolution ? <VideoCameraOutlined /> : null}
-        </div>
-      ),
-      sorter: (a, b) => a.solutionNum - b.solutionNum,
+      sorter: (a, b) => Number(a.questionId) - Number(b.questionId),
     },
     {
       title: '通过率',
       dataIndex: 'acRate',
       key: 'acRate',
-      render: text => <div>{(Number(text) * 100).toFixed(1)}%</div>,
-      sorter: (a, b) => a.acRate - b.acRate,
+      sorter: (a, b) => {
+        function getValue(val: string) {
+          const arr = val.split('.')
+          return Number(arr[0])
+        }
+        return getValue(String(a.acRate)) - getValue(String(b.acRate))
+      },
     },
     {
       title: '难度',
@@ -112,29 +124,47 @@ const QuestionList = ({ slug }: { slug: string }) => {
     },
   ]
 
-  const renderDifficulty = (difficulty: string) => {
-    if (difficulty.toUpperCase() === 'EASY') {
-      return <Tag color="#00af9b">简单</Tag>
-    } else if (difficulty.toUpperCase() === 'MEDIUM') {
-      return <Tag color="#ffb800">中等</Tag>
-    } else if (difficulty.toUpperCase() === 'HARD') {
-      return <Tag color="#ff2d55">困难</Tag>
-    }
+  const onPaginationChange = (page: number, pageSize: number) => {
+    setCurrent(page)
+    setLimit(pageSize)
+    const arr = allList.slice((page - 1) * pageSize, pageSize * page)
+    setList([...arr])
   }
 
   useEffect(() => {
-    getProblemList()
+    getProblemsList()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className="mt-5">
-      <Table
-        rowKey="questionId"
-        columns={columns}
-        dataSource={list}
-        pagination={false}
-      />
+    <div className='mt-5'>
+      <div className='flex items-center justify-between my-8'>
+        <div className='flex items-center text-[#262626bf]'>
+          <div>完成度: </div>
+          <div className='mx-2'>
+            {completeCount} / {allList.length}
+          </div>
+          <Progress percent={(completeCount / allList.length) * 100} showInfo={false} style={{ width: 100 }}></Progress>
+        </div>
+        <div className='flex  items-center gap-x-2 w-[300px]'>
+          <div className='flex-1'>
+            <QuestionStatusTag></QuestionStatusTag>
+          </div>
+          <div className='flex-1'>
+            <QuestionDifficultyTag></QuestionDifficultyTag>
+          </div>
+        </div>
+      </div>
+      <Table rowKey='questionId' columns={columns} dataSource={list} pagination={false} loading={loading} />
+      <div className='mt-5 flex justify-end'>
+        <Pagination
+          total={total}
+          current={current}
+          pageSize={limit}
+          pageSizeOptions={[20, 50, 100]}
+          onChange={onPaginationChange}
+        />
+      </div>
     </div>
   )
 }

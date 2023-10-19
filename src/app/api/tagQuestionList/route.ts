@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const { slug } = await req.json()
+  axios.interceptors.request.use(config => {
+    config.headers.Cookie = `csrftoken=${process.env.csrftoken};LEETCODE_SESSION=${process.env.LEETCODE_SESSION};`
+    return config
+  })
   try {
     const res = await axios.get(
       'https://questions.leetcode.cn/production/20231018090004_questions_include_main_regular_user.json',

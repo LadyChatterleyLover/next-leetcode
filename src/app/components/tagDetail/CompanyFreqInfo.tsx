@@ -46,7 +46,7 @@ const CompanyFreqInfo = ({ slug }: { slug: string }) => {
   return (
     tagList.length && (
       <div
-        className='bg-white px-3 py-4 rounded-lg mt-5'
+        className='bg-white px-3 py-4 rounded-lg mt-5 w-[260px]'
         style={{ boxShadow: '0 2px 8px rgba(0,0,0, 0.08),0 1px 2px rgba(0,0,0, 0.1)' }}
       >
         <div className='mb-4 text-sm leading-5 text-[#262626bf] font-500'>知识点出题频率</div>
