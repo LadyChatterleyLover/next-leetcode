@@ -248,3 +248,18 @@ export interface DiscussItem {
   uuid: string
   __typename: string
 }
+
+export interface Book {
+  coverImg: string
+  slug: string
+  title: string
+  totalStudied: number
+  __typename: string
+  commonTags: {
+    imgUrl: string | null
+    nameTranslated: string
+    name: string
+    slug: string
+    __typename: string
+  }[]
+}

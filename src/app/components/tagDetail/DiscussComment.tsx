@@ -84,7 +84,6 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
       .then(res => {
         state.commentList = res.data.data.list
         state.total = res.data.data.total
-        console.log('res', res.data.data)
       })
   }
 
@@ -135,7 +134,7 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
                     <div className='flex items-center gap-x-2 text-[#bfbfbf] text-sm'>
                       <div>来自{item.ipRegion}</div>
                       <div className='w-1 h-1 bg-[#bfbfbf] rounded-full'></div>
-                      <div>{dayjs(item.createdAt).format('YYYY.MM.DD HH:mm:ss')}</div>
+                      <div>{dayjs(item.createdAt).format('YYYY.MM.DD')}</div>
                     </div>
                   </div>
                   <div className='mt-5 leading-6 overflow-hidden'>
