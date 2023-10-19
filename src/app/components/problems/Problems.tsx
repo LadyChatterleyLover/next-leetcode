@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useReactive } from 'ahooks'
 import axios from 'axios'
 import { ColumnsType } from 'antd/lib/table'
 import { Input, Pagination, Table, Tag, Tooltip } from 'antd'
@@ -21,12 +22,22 @@ import { ProblemItem } from '@/app/types'
 
 const Problems = () => {
   const router = useRouter()
-  const [problemList, setProblemList] = useState<ProblemItem[]>([])
-  const [total, setTotal] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const [skip, setSkip] = useState(0)
-  const [current, setCurrent] = useState(1)
-  const [limit, setLimit] = useState(50)
+
+  const state = useReactive<{
+    problemList: ProblemItem[]
+    skip: number
+    current: number
+    limit: number
+    total: number
+    loading: boolean
+  }>({
+    problemList: [],
+    skip: 0,
+    current: 1,
+    limit: 50,
+    total: 0,
+    loading: false,
+  })
 
   const renderStatus = (status: string) => {
     if (!status) {
@@ -116,31 +127,32 @@ const Problems = () => {
     },
   ]
 
-  const getProblemsList = (s: number, l: number) => {
-    setLoading(true)
+  const getProblemsList = () => {
+    state.loading = true
     axios
       .post('/api/problems', {
-        skip: s,
-        limit: l,
+        skip: state.skip,
+        limit: state.limit,
       })
       .then(res => {
-        setProblemList(res.data.data.questions)
-        setTotal(res.data.data.total)
+        state.problemList = res.data.data.questions
+        state.total = res.data.data.total
       })
       .finally(() => {
-        setLoading(false)
+        state.loading = false
       })
   }
 
   useEffect(() => {
-    getProblemsList(skip, limit)
-  }, [limit, skip])
+    getProblemsList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    setSkip((page - 1) * pageSize)
-    setCurrent(page)
-    setLimit(pageSize)
-    getProblemsList((page - 1) * pageSize, pageSize)
+    state.skip = (page - 1) * pageSize
+    state.current = page
+    state.limit = pageSize
+    getProblemsList()
   }
 
   return (
@@ -173,15 +185,15 @@ const Problems = () => {
       <Table
         rowKey='frontendQuestionId'
         columns={columns}
-        dataSource={problemList}
+        dataSource={state.problemList}
         pagination={false}
-        loading={loading}
+        loading={state.loading}
       />
       <div className='mt-5 flex justify-end'>
         <Pagination
-          total={total}
-          current={current}
-          pageSize={limit}
+          total={state.total}
+          current={state.current}
+          pageSize={state.limit}
           pageSizeOptions={[20, 50, 100]}
           onChange={onPaginationChange}
         />

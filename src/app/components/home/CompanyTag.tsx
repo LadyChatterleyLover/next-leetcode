@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useReactive } from 'ahooks'
 import axios from 'axios'
-import { Button, Input, message } from 'antd'
+import { Button, Input } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 interface CompanyTag {
@@ -13,49 +14,57 @@ interface CompanyTag {
 }
 
 const CompanyTag = () => {
-  const [offset, setOffset] = useState(0)
-  const [companyTagList, setCompanyTagList] = useState<CompanyTag[]>([])
-  const [hasMore, setHasMore] = useState(false)
-  const [keyWord, setKeyWord] = useState('')
+  const state = useReactive<{
+    companyTagList: CompanyTag[]
+    offset: number
+    keyWord: string
+    hasMore: boolean
+  }>({
+    companyTagList: [],
+    offset: 0,
+    keyWord: '',
+    hasMore: false,
+  })
 
-  const getCompanyTag = (offset: number) => {
+  const getCompanyTag = () => {
     axios
       .post('/api/companyTag', {
-        offset,
+        offset: state.offset,
       })
       .then(res => {
-        setCompanyTagList(res.data.data.list)
-        setHasMore(res.data.data.hasMore)
+        state.companyTagList = res.data.data.list
+        state.hasMore = res.data.data.hasMore
       })
   }
 
-  const getInterviewSearchCompanyCards = (offset: number, val: string) => {
+  const getInterviewSearchCompanyCards = () => {
     axios
       .post('/api/interviewSearchCompanyCards', {
-        keyWords: val,
-        offset,
+        keyWords: state.keyWord,
+        offset: state.offset,
       })
       .then(res => {
-        setCompanyTagList(res.data.data.list)
-        setHasMore(res.data.data.hasMore)
+        state.companyTagList = res.data.data.list
+        state.hasMore = res.data.data.hasMore
       })
   }
 
   const onSearch = (val: string) => {
     if (!val) {
-      getCompanyTag(offset)
+      getCompanyTag()
     } else {
-      getInterviewSearchCompanyCards(offset, val)
+      state.keyWord = val
+      getInterviewSearchCompanyCards()
     }
   }
 
   useEffect(() => {
-    getCompanyTag(0)
+    getCompanyTag()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    companyTagList.length && (
+    state.companyTagList.length && (
       <div
         className='bg-white rounded-lg px-4 pb-1 pt-2 '
         style={{
@@ -69,27 +78,27 @@ const CompanyTag = () => {
             <Button
               size='small'
               icon={<LeftOutlined />}
-              disabled={offset === 0}
+              disabled={state.offset === 0}
               className='mr-1'
               onClick={() => {
-                setOffset(val => (val -= 15))
-                if (!keyWord) {
-                  getCompanyTag(offset - 15)
+                state.offset -= 15
+                if (!state.keyWord) {
+                  getCompanyTag()
                 } else {
-                  getInterviewSearchCompanyCards(offset - 15, keyWord)
+                  getInterviewSearchCompanyCards()
                 }
               }}
             ></Button>
             <Button
               size='small'
               icon={<RightOutlined />}
-              disabled={!hasMore}
+              disabled={!state.hasMore}
               onClick={() => {
-                setOffset(val => (val += 15))
-                if (!keyWord) {
-                  getCompanyTag(offset + 15)
+                state.offset += 15
+                if (!state.keyWord) {
+                  getCompanyTag()
                 } else {
-                  getInterviewSearchCompanyCards(offset + 15, keyWord)
+                  getInterviewSearchCompanyCards()
                 }
               }}
             ></Button>
@@ -99,15 +108,15 @@ const CompanyTag = () => {
           <Input.Search
             placeholder='输入企业名称'
             allowClear
-            value={keyWord}
+            value={state.keyWord}
             onSearch={(val: string) => onSearch(val)}
             onChange={e => {
-              setKeyWord(e.target.value)
+              state.keyWord = e.target.value
             }}
           ></Input.Search>
         </div>
         <div className='flex flex-wrap'>
-          {companyTagList.map(item => {
+          {state.companyTagList.map(item => {
             return (
               <div key={item.id} className='mb-4 mr-3'>
                 <span className='inline-flex items-center px-2 whitespace-nowrap text-xs leading-6 rounded-full text-label-3 dark:text-dark-label-3 bg-fill-3 dark:bg-dark-fill-3'>

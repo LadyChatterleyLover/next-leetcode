@@ -11,16 +11,15 @@ const SolutionList = () => {
     return searchParams.get('slugTitle')!
   }, [searchParams])
   let [skip, setSkip] = useState(0)
-  const [first, setFirst] = useState(15)
-  const [orderBy, setOrderBy] = useState('DEFAULT')
-  const [userInput, setUserInput] = useState('')
-  const [tagSlugs, setTagSlugs] = useState<string[]>([])
+  const [first] = useState(15)
+  const [orderBy] = useState('DEFAULT')
+  const [userInput] = useState('')
+  const [tagSlugs] = useState<string[]>([])
   const [solutionList, setSolutionList] = useState<Solution[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const getSolutionList = () => {
-    console.log(111)
     if (loading) {
       return
     }
