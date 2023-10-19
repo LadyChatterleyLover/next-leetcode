@@ -187,3 +187,63 @@ export interface AnswerResult {
     lastTestcase: string
   }
 }
+
+export interface DiscussItem {
+  alwaysExpand: boolean
+  alwaysShow: boolean
+  articleType: string
+  byLeetcode: boolean
+  canEdit: boolean
+  content: string
+  contentAuthor: {
+    avatar: string
+    realName: string
+    userSlug: string
+    username: string
+    __typename: string
+  }
+  reactionsV2: {
+    count: number
+    reactionType: string
+    __typename: string
+  }[]
+  createdAt: string
+  favoriteCount: number
+  hitCount: number
+  identifier: string
+  isAnonymous: boolean
+  isMyFavorite: boolean
+  isRecommended: boolean
+  isRecommendedGlobally: boolean
+  numAnswers: number
+  numPeopleInvolved: number
+  numSubscribed: number
+  pinned: boolean
+  pinnedGlobally: boolean
+  qaSunk: boolean
+  reactionType: string
+  realAuthor: string | null
+  resourceType: string
+  score: string | null
+  slug: string
+  status: string
+  subject: {
+    slug: string
+    title: string
+    __typename: string
+  }
+  subscribed: boolean
+  summary: string
+  tags: {
+    imgUrl: string | null
+    name: string
+    nameTranslated: string
+    slug: string
+    __typename: string
+  }[]
+  thumbnail: string
+  title: string
+  updatedAt: string | null
+  uuid: string
+  __typename: string
+}

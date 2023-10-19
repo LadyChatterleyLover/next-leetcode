@@ -12,6 +12,7 @@
     "@ant-design/cssinjs": "^1.17.2",
     "@ant-design/icons": "^5.2.6",
     "@monaco-editor/react": "^4.6.0",
+    "ahooks": "^3.7.8",
     "antd": "^5.10.0",
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",

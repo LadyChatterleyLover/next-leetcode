@@ -35,7 +35,6 @@ const QuestionList = ({ slug }: { slug: string }) => {
         setTotal(data.length)
         setAllList([...data])
         setList([...data.slice((current - 1) * limit, limit * current)])
-        console.log('data', data)
       })
       .finally(() => {
         setLoading(false)
