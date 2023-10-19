@@ -281,6 +281,9 @@ export interface Category {
 
 export interface LeetBook {
   chapterNum: number
+  summary: {
+    content: string
+  }
   author: {
     bio: string
     title: string

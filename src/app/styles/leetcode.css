@@ -1,0 +1,115 @@
+.leetbook-info {
+  color: #595959;
+  text-align: justify;
+  font-size: 16px;
+}
+.leetbook-info .align-center {
+  text-align: center;
+}
+
+.leetbook-info .heading {
+  position: relative;
+  z-index: 1;
+  margin: 20px 0px;
+  padding: 0px 50px;
+  text-align: center;
+  display: inline-block;
+  height: 45px;
+  font-weight: bold;
+  min-width: 220px;
+  line-height: 43px;
+  font-size: 18px;
+  color: #262626;
+}
+.leetbook-info .heading .dec_frame {
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 45px;
+  border: 1px solid #dfdfdf;
+}
+.leetbook-info .heading .dec_frame::after {
+  content: '';
+  display: block;
+  z-index: 1;
+  position: absolute;
+  height: 45px;
+  width: calc(100% + 2px);
+  border: 1px solid #dfdfdf;
+  top: 3px;
+  left: 3px;
+}
+.leetbook-info .heading .dec_frame::before {
+  content: '';
+  display: block;
+  z-index: 1;
+  position: absolute;
+  height: 45px;
+  width: calc(100% + 2px);
+  border: 1px solid #dfdfdf;
+  top: -5px;
+  left: -5px;
+}
+.leetbook-info .heading .dec {
+  border-radius: 100%;
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(-90deg, #08245a, #3c92f8);
+}
+.leetbook-info .heading .dec_t {
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  clip-path: inset(0px 0px 0px 43px);
+  transform: rotate(225deg);
+  top: -20px;
+  left: -20px;
+}
+.leetbook-info .heading .dec_t:last-child {
+  top: initial;
+  left: initial;
+  bottom: -20px;
+  right: -20px;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  clip-path: inset(0px 0px 0px 40px);
+  transform: rotate(45deg);
+}
+.leetbook-info .heading .dec_t::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  transform: rotate(-45deg);
+  background: linear-gradient(90deg, #08245a, #3c92f8);
+}
+
+.leetbook-info ul {
+  padding-left: 20px;
+  margin: 8px 8px 16px;
+}
+
+.leetbook-info p {
+  line-height: 24px;
+  margin: 8px 0;
+}
+.leetbook-info .round-lg {
+  border-radius: 8px;
+}
+.leetbook-info br {
+  background: transparent;
+}
+
+.leetbook-info .panel {
+  padding: 15px 20px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  line-height: 24px;
+}

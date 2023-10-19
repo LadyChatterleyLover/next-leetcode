@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './styles/leetcode.css';
 
 * {
   margin: 0;
@@ -11,10 +12,10 @@ li {
   list-style: none;
 }
 
-html,
-body {
-  height: 100%;
+.book-overview li {
+  list-style: disc !important;
 }
+
 .answer-code pre,
 .editor-code pre {
   background: none !important;

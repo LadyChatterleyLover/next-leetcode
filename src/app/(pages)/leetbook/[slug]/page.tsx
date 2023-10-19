@@ -1,6 +1,7 @@
 'use client'
 
 import BookInfo from '@/app/components/leetbook/BookInfo'
+import BookOverview from '@/app/components/leetbook/BookOverview'
 import { LeetBook } from '@/app/types'
 import { useReactive } from 'ahooks'
 import axios from 'axios'
@@ -17,9 +18,23 @@ const LeetBookDetail = () => {
 
   const state = useReactive<{
     bookDetail: LeetBook | null
+    currentIndex: number
   }>({
     bookDetail: null,
+    currentIndex: 0,
   })
+
+  const tabs = [
+    {
+      name: '概览',
+    },
+    {
+      name: '目录',
+    },
+    {
+      name: '精选评论',
+    },
+  ]
 
   const getBookDetail = () => {
     axios
@@ -38,9 +53,35 @@ const LeetBookDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <>
-      <BookInfo bookDetail={state.bookDetail!}></BookInfo>
-    </>
+    <div className="w-full h-full bg-[#D4E0E7]">
+      <div className="mx-auto py-8 px-[90px] max-w-[72rem] min-w-[1120px]">
+        <BookInfo bookDetail={state.bookDetail!}></BookInfo>
+        <div
+          className="flex mt-[60px] gap-x-8 h-[45px]"
+          style={{ borderBottom: '1px solid #e5e5e5' }}>
+          {tabs.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="text-lg h-[45px] font-[500] cursor-pointer"
+                style={{
+                  borderBottom: state.currentIndex === index ? '2px solid #000' : '',
+                }}
+                onClick={() => {
+                  state.currentIndex = index
+                }}>
+                {item.name}
+              </div>
+            )
+          })}
+        </div>
+        <div className="mt-8">
+          {state.currentIndex === 0 ? (
+            <BookOverview bookDetail={state.bookDetail!}></BookOverview>
+          ) : null}
+        </div>
+      </div>
+    </div>
   )
 }
 
