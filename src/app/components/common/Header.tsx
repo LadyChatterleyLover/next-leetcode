@@ -65,6 +65,7 @@ const Header = () => {
             </svg>
           </div>
         </Link>
+        <div>123</div>
         <div className='h-full flex items-center'>
           <SearchOutlined style={{ fontSize: 20, color: '#0000008c' }}></SearchOutlined>
           <div>
