@@ -7,7 +7,6 @@ import { Category, LeetBook, SubCategory } from '@/app/types'
 import CategoryDetail from './CategoryDetail'
 
 const Categories = () => {
-  const detailRef = useRef<any>()
   const state = useReactive<{
     currentIndex: number
     categories: Category[]
@@ -64,7 +63,7 @@ const Categories = () => {
   return (
     state.categories.length && (
       <>
-        <div className='flex items-center'>
+        <div className="flex items-center">
           {state.categories.map((item, index) => {
             return (
               <div
@@ -80,8 +79,7 @@ const Categories = () => {
                   })
                   state.ids = arr
                   getBookList()
-                }}
-              >
+                }}>
                 {item.name}
               </div>
             )
