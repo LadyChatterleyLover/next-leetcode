@@ -5,10 +5,12 @@ import { useParams } from 'next/navigation'
 import { useReactive } from 'ahooks'
 import { DiscussItem } from '@/app/types'
 import axios from 'axios'
-import { Avatar, Divider, Popover } from 'antd'
+import { Avatar, Divider } from 'antd'
 import dayjs from 'dayjs'
 import { BellOutlined, EditOutlined, LikeOutlined, ShareAltOutlined, StarOutlined } from '@ant-design/icons'
 import DiscussComment from '@/app/components/tagDetail/DiscussComment'
+import Markdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 
 const DiscussCircle = () => {
   const params = useParams()
@@ -64,11 +66,9 @@ const DiscussCircle = () => {
           <div className='w-1 h-1 rounded-full bg-[#bfbfbf]'></div>
           <div>来自于 {state.detail?.ipRegion}</div>
         </div>
-        <div
-          className='leading-8 mt-5 whitespace-pre'
-          style={{ wordBreak: 'break-word' }}
-          dangerouslySetInnerHTML={{ __html: state.detail?.content! }}
-        ></div>
+        <div className='leading-5 mt-5 whitespace-pre overflow-x-auto' style={{ wordBreak: 'break-word' }}>
+          <Markdown rehypePlugins={[rehypeHighlight]}>{state.detail?.content}</Markdown>
+        </div>
         <div className='mt-3 bg-[#eee] h-[1px]'></div>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-x-2 py-[14px] px-4'>

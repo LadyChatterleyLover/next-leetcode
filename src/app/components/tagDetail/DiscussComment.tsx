@@ -1,15 +1,16 @@
+'use client'
+
 import { DiscussItem } from '@/app/types'
 import {
   CheckOutlined,
   CommentOutlined,
-  EyeOutlined,
   LikeOutlined,
   ShareAltOutlined,
   SortAscendingOutlined,
   StarOutlined,
 } from '@ant-design/icons'
 import { useReactive } from 'ahooks'
-import { Avatar, Divider, Popover } from 'antd'
+import { Avatar, Divider, Pagination, Popover } from 'antd'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect } from 'react'
@@ -28,12 +29,14 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
     pageNum: number
     total: number
     sortText: string
+    current: number
   }>({
     commentList: [],
     orderBy: 'HOTTEST',
     pageNum: 0,
     total: 0,
     sortText: '最热',
+    current: 1,
   })
 
   const sortList: { name: string; value: 'HOTTEST' | 'LATEST' }[] = [
@@ -113,8 +116,9 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
             </div>
           </Popover>
         </div>
-        {state.commentList.length
-          ? state.commentList.map(item => {
+        {state.commentList.length ? (
+          <>
+            {state.commentList.map(item => {
               return (
                 <div
                   key={item.uuid}
@@ -134,8 +138,10 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
                       <div>{dayjs(item.createdAt).format('YYYY.MM.DD HH:mm:ss')}</div>
                     </div>
                   </div>
-                  <div className='mt-5 leading-6'>
-                    <Markdown rehypePlugins={[rehypeHighlight]}>{item.content}</Markdown>
+                  <div className='mt-5 leading-6 overflow-hidden'>
+                    <div className='overflow-x-auto'>
+                      <Markdown rehypePlugins={[rehypeHighlight]}>{item.content}</Markdown>
+                    </div>
                   </div>
                   <Divider></Divider>
                   <div className='mt-8 flex items-center text-[#8c8c8c] text-sm gap-x-1'>
@@ -161,8 +167,21 @@ const DiscussComment: React.FC<Props> = ({ uuid, detail }) => {
                   </div>
                 </div>
               )
-            })
-          : null}
+            })}
+            <div className='mt-4'>
+              <Pagination
+                total={state.total}
+                current={state.current}
+                pageSize={10}
+                onChange={page => {
+                  state.current = page
+                  state.pageNum = page - 1
+                  getCommentList()
+                }}
+              ></Pagination>
+            </div>
+          </>
+        ) : null}
       </>
     )
   )
