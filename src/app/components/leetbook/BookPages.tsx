@@ -1,45 +1,23 @@
 import { LeetBookPage } from '@/app/types'
 import { useReactive } from 'ahooks'
-import { Divider } from 'antd'
+import { Divider, Spin } from 'antd'
 import axios from 'axios'
 import { useCallback, useEffect } from 'react'
-import { cloneDeep } from 'lodash-es'
 import { CaretRightOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/navigation'
+import { array2Tree } from '@/app/utils/bookArrayToTree'
 
 interface Props {
   slug: string
 }
 const BookPages: React.FC<Props> = ({ slug }) => {
+  const router = useRouter()
+
   const state = useReactive<{
     chapterList: LeetBookPage[]
   }>({
     chapterList: [],
   })
-
-  const array2Tree = (items: LeetBookPage[]) => {
-    const result = []
-    const itemMap: Record<string, any> = {}
-    for (const item of items) {
-      itemMap[item.id] = { ...item, children: [] }
-    }
-
-    for (const item of items) {
-      const id = item.id
-      const pid = item.parentId
-      const treeItem = itemMap[id]
-      if (pid === null) {
-        result.push(treeItem)
-      } else {
-        if (!itemMap[pid!]) {
-          itemMap[pid!] = {
-            children: [],
-          }
-        }
-        itemMap[pid!].children.push(treeItem)
-      }
-    }
-    return result
-  }
 
   const getBookPages = useCallback(() => {
     axios
@@ -47,7 +25,7 @@ const BookPages: React.FC<Props> = ({ slug }) => {
         slug,
       })
       .then(res => {
-        const pages = cloneDeep(res.data.data.pages) as LeetBookPage[]
+        const pages = res.data.data.pages as LeetBookPage[]
         state.chapterList = array2Tree(pages).sort((a, b) => a.order - b.order)
         state.chapterList.map(item => {
           item.children.map(item1 => {
@@ -61,7 +39,7 @@ const BookPages: React.FC<Props> = ({ slug }) => {
     getBookPages()
   }, [getBookPages])
 
-  return (
+  return state.chapterList.length ? (
     <div
       className='bg-white rounded-lg pb-7 w-full'
       style={{
@@ -84,10 +62,12 @@ const BookPages: React.FC<Props> = ({ slug }) => {
               {item.children.length
                 ? item.children.map(child => {
                     return (
-                      <>
+                      <div key={child.id}>
                         <div
-                          key={child.id}
                           className='flex h-11 items-center justify-between cursor-pointer pl-3 rounded text-[#262626] hover:bg-[#0000000a]'
+                          onClick={() => {
+                            router.push(`/leetbook/read/${slug}/${child.id}`)
+                          }}
                         >
                           <div className='flex items-center gap-x-2'>
                             {child.children.length ? (
@@ -145,6 +125,9 @@ const BookPages: React.FC<Props> = ({ slug }) => {
                                 <div
                                   key={c.id}
                                   className='flex h-11 items-center justify-between cursor-pointer pl-10 ml-6 rounded text-[#262626] hover:bg-[#0000000a]'
+                                  onClick={() => {
+                                    router.push(`/leetbook/read/${slug}/${c.id}`)
+                                  }}
                                 >
                                   <div className='flex items-center gap-x-2'>
                                     {c.pageType === 'MIXED' ? (
@@ -187,7 +170,7 @@ const BookPages: React.FC<Props> = ({ slug }) => {
                             })}
                           </div>
                         ) : null}
-                      </>
+                      </div>
                     )
                   })
                 : null}
@@ -197,6 +180,8 @@ const BookPages: React.FC<Props> = ({ slug }) => {
         )
       })}
     </div>
+  ) : (
+    <Spin></Spin>
   )
 }
 
