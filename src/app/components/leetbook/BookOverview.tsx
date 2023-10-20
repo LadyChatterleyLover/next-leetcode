@@ -23,15 +23,10 @@ const BookOverview: React.FC<Props> = ({ bookDetail }) => {
         item.appendChild(div3)
         item.appendChild(div4)
       })
-      console.log('headings', headings)
     }
   }, [bookDetail])
   return (
-    bookDetail && (
-      <div
-        className="book-overview"
-        dangerouslySetInnerHTML={{ __html: bookDetail.summary.content }}></div>
-    )
+    bookDetail && <div className='book-overview' dangerouslySetInnerHTML={{ __html: bookDetail.summary.content }}></div>
   )
 }
 

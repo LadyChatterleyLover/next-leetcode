@@ -53,32 +53,34 @@ const LeetBookDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <div className="w-full h-full bg-[#D4E0E7]">
-      <div className="mx-auto py-8 px-[90px] max-w-[72rem] min-w-[1120px]">
-        <BookInfo bookDetail={state.bookDetail!}></BookInfo>
-        <div
-          className="flex mt-[60px] gap-x-8 h-[45px]"
-          style={{ borderBottom: '1px solid #e5e5e5' }}>
-          {tabs.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="text-lg h-[45px] font-[500] cursor-pointer"
-                style={{
-                  borderBottom: state.currentIndex === index ? '2px solid #000' : '',
-                }}
-                onClick={() => {
-                  state.currentIndex = index
-                }}>
-                {item.name}
-              </div>
-            )
-          })}
-        </div>
-        <div className="mt-8">
-          {state.currentIndex === 0 ? (
-            <BookOverview bookDetail={state.bookDetail!}></BookOverview>
-          ) : null}
+    <div className='w-full h-full bg-[#D4E0E7]'>
+      <div className='mx-auto py-8 px-[90px] max-w-[72rem] min-w-[1120px]'>
+        <div className='flex'>
+          <div className='flex flex-col'>
+            <BookInfo bookDetail={state.bookDetail!}></BookInfo>
+            <div className='flex mt-[60px] gap-x-8 h-[45px]' style={{ borderBottom: '1px solid #e5e5e5' }}>
+              {tabs.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className='text-lg h-[45px] font-[500] cursor-pointer'
+                    style={{
+                      borderBottom: state.currentIndex === index ? '2px solid #000' : '',
+                    }}
+                    onClick={() => {
+                      state.currentIndex = index
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                )
+              })}
+            </div>
+            <div className='mt-8'>
+              {state.currentIndex === 0 ? <BookOverview bookDetail={state.bookDetail!}></BookOverview> : null}
+            </div>
+          </div>
+          <div className='w-[300px] ml-8'>123</div>
         </div>
       </div>
     </div>
