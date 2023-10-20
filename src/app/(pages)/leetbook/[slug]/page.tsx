@@ -3,13 +3,14 @@
 import BookInfo from '@/app/components/leetbook/BookInfo'
 import BookIntro from '@/app/components/leetbook/BookIntro'
 import BookOverview from '@/app/components/leetbook/BookOverview'
+import BookPages from '@/app/components/leetbook/BookPages'
 import HotBooks from '@/app/components/leetbook/HotBooks'
 import { LeetBook } from '@/app/types'
 import { useReactive } from 'ahooks'
 import axios from 'axios'
 
 import { useParams } from 'next/navigation'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
 const LeetBookDetail = () => {
   const params = useParams()
@@ -23,7 +24,7 @@ const LeetBookDetail = () => {
     currentIndex: number
   }>({
     bookDetail: null,
-    currentIndex: 0,
+    currentIndex: 1,
   })
 
   const tabs = [
@@ -38,22 +39,21 @@ const LeetBookDetail = () => {
     },
   ]
 
-  const getBookDetail = () => {
+  const getBookDetail = useCallback(() => {
     axios
       .post('/api/leetbookBookDetail', {
         slug,
       })
       .then(res => {
         const data = res.data.data
-        state.bookDetail = data
         console.log('data', data)
+        state.bookDetail = data
       })
-  }
+  }, [slug, state])
 
   useEffect(() => {
     getBookDetail()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [getBookDetail])
   return (
     <div className='w-full h-full leetbookContainer'>
       <div className='mx-auto py-8  max-w-[72rem] min-w-[1200px]'>
@@ -80,10 +80,11 @@ const LeetBookDetail = () => {
             </div>
             <div className='mt-8'>
               {state.currentIndex === 0 ? <BookOverview bookDetail={state.bookDetail!}></BookOverview> : null}
+              {state.currentIndex === 1 ? <BookPages slug={slug}></BookPages> : null}
             </div>
           </div>
           <div className='w-[300px] flex flex-col mt-10'>
-            <BookIntro bookDetail={state.bookDetail!}></BookIntro>
+            {state.bookDetail ? <BookIntro bookDetail={state.bookDetail!}></BookIntro> : null}
             <HotBooks slug={slug}></HotBooks>
           </div>
         </div>

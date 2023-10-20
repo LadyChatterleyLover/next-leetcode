@@ -21,7 +21,7 @@ const BookIntro: React.FC<Props> = ({ bookDetail }) => {
   }
 
   return (
-    bookDetail && (
+    bookDetail !== null && (
       <div className='flex flex-col w-full gap-y-3'>
         <div className='flex items-center justify-between'>
           <div className='text-sm text-[#3c3c4399] leading-6 mr-2'>评价这本书</div>
@@ -40,7 +40,7 @@ const BookIntro: React.FC<Props> = ({ bookDetail }) => {
         </div>
         <div className='flex items-center'>
           <div className='flex flex-col flex-1'>
-            <div className='leading-6'>{bookDetail.progress ?? '暂无'}</div>
+            <div className='leading-6'>{bookDetail.progress ? bookDetail.progress.numCompleted + '%' : '暂无'}</div>
             <div className='text-xs leading-5 text-[#8c8c8c] mt-[2px]'>学习进度</div>
           </div>
           <div className='flex flex-col flex-1'>
@@ -79,7 +79,7 @@ const BookIntro: React.FC<Props> = ({ bookDetail }) => {
               <Button icon={<PlusOutlined></PlusOutlined>}>关注</Button>
             </div>
           </div>
-          <div className='mt-3 text-sm text-[#595959] leading-6 line-clamp-3'>{bookDetail.author.bio}</div>
+          <div className='mt-3 text-sm text-[#595959] leading-6 line-clamp-3'>{(bookDetail.author as Author2).bio}</div>
         </div>
 
         {bookDetail.descBlocks.map((item, index) => {

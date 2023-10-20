@@ -338,10 +338,34 @@ export interface LeetBook {
     }
     __typename: string
   }
-  progress: string | null
+  progress: {
+    numCompleted: number
+    numCompletedPremium: number
+    startedAt: string
+    __typename: string
+  } | null
   recommendation: string
   slug: string
   title: string
   totalStudied: number
   __typename: string
+}
+
+export interface LeetBookPage {
+  id: string
+  isDraft: boolean
+  isGreyTitle: boolean
+  isSample: boolean
+  isTitleHidden: boolean
+  order: number
+  pageType: string
+  parentId: string | null
+  premiumOnly: boolean
+  prerequisite: string | null
+  publishedAt: string | null
+  qaQuestionUuid: string | null
+  title: string
+  collapse: boolean
+  __typename: string
+  children: LeetBookPage[]
 }
