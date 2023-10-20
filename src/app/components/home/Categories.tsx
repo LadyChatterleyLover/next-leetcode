@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useReactive } from 'ahooks'
 import { Category, LeetBook, SubCategory } from '@/app/types'
 import CategoryDetail from './CategoryDetail'
+import { Spin } from 'antd'
 
 const Categories = () => {
   const state = useReactive<{
@@ -60,34 +61,35 @@ const Categories = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    state.categories.length && (
-      <>
-        <div className="flex items-center">
-          {state.categories.map((item, index) => {
-            return (
-              <div
-                key={item.id}
-                className={`px-4 h-10 rounded-lg flex justify-center items-center mr-6 hover:bg-[#0000000c] cursor-pointer ${
-                  state.currentIndex === index ? 'font-[500] bg-[#0000000c]' : ''
-                }`}
-                onClick={() => {
-                  state.currentIndex = index
-                  let arr: number[] = []
-                  state.categories[state.currentIndex].subcategories.map(item => {
-                    arr = [...arr, ...item.ids]
-                  })
-                  state.ids = arr
-                  getBookList()
-                }}>
-                {item.name}
-              </div>
-            )
-          })}
-        </div>
-        <CategoryDetail bookList={state.bookList}></CategoryDetail>
-      </>
-    )
+  return state.categories.length ? (
+    <>
+      <div className='flex items-center'>
+        {state.categories.map((item, index) => {
+          return (
+            <div
+              key={item.id}
+              className={`px-4 h-10 rounded-lg flex justify-center items-center mr-6 hover:bg-[#0000000c] cursor-pointer ${
+                state.currentIndex === index ? 'font-[500] bg-[#0000000c]' : ''
+              }`}
+              onClick={() => {
+                state.currentIndex = index
+                let arr: number[] = []
+                state.categories[state.currentIndex].subcategories.map(item => {
+                  arr = [...arr, ...item.ids]
+                })
+                state.ids = arr
+                getBookList()
+              }}
+            >
+              {item.name}
+            </div>
+          )
+        })}
+      </div>
+      <CategoryDetail bookList={state.bookList}></CategoryDetail>
+    </>
+  ) : (
+    <Spin></Spin>
   )
 }
 

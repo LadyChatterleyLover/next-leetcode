@@ -24,7 +24,7 @@ const LeetBookDetail = () => {
     currentIndex: number
   }>({
     bookDetail: null,
-    currentIndex: 1,
+    currentIndex: 0,
   })
 
   const tabs = [
@@ -46,7 +46,6 @@ const LeetBookDetail = () => {
       })
       .then(res => {
         const data = res.data.data
-        console.log('data', data)
         state.bookDetail = data
       })
   }, [slug, state])

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Image from 'next/image'
 import { Book } from '@/app/types'
 import BookContainer from './BookContainer'
+import { Spin } from 'antd'
 
 const SubjectBook = ({ slug }: { slug: string }) => {
   const [bookList, setBookList] = useState<Book[]>([])
@@ -23,7 +24,7 @@ const SubjectBook = ({ slug }: { slug: string }) => {
     getSubjectBook()
   }, [getSubjectBook])
 
-  return bookList.length && <BookContainer bookList={bookList}></BookContainer>
+  return bookList.length ? <BookContainer bookList={bookList}></BookContainer> : <Spin></Spin>
 }
 
 export default SubjectBook
