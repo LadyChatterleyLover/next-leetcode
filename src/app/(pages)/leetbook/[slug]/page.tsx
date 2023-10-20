@@ -1,6 +1,7 @@
 'use client'
 
 import BookInfo from '@/app/components/leetbook/BookInfo'
+import BookIntro from '@/app/components/leetbook/BookIntro'
 import BookOverview from '@/app/components/leetbook/BookOverview'
 import { LeetBook } from '@/app/types'
 import { useReactive } from 'ahooks'
@@ -54,9 +55,9 @@ const LeetBookDetail = () => {
   }, [])
   return (
     <div className='w-full h-full bg-[#D4E0E7]'>
-      <div className='mx-auto py-8 px-[90px] max-w-[72rem] min-w-[1120px]'>
-        <div className='flex'>
-          <div className='flex flex-col'>
+      <div className='mx-auto py-8  max-w-[72rem] min-w-[1200px]'>
+        <div className='flex w-full gap-x-10'>
+          <div className='flex flex-col flex-1'>
             <BookInfo bookDetail={state.bookDetail!}></BookInfo>
             <div className='flex mt-[60px] gap-x-8 h-[45px]' style={{ borderBottom: '1px solid #e5e5e5' }}>
               {tabs.map((item, index) => {
@@ -80,7 +81,9 @@ const LeetBookDetail = () => {
               {state.currentIndex === 0 ? <BookOverview bookDetail={state.bookDetail!}></BookOverview> : null}
             </div>
           </div>
-          <div className='w-[300px] ml-8'>123</div>
+          <div className='w-[300px] flex flex-col mt-10'>
+            <BookIntro bookDetail={state.bookDetail!}></BookIntro>
+          </div>
         </div>
       </div>
     </div>

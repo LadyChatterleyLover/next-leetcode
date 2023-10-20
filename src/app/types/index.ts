@@ -279,21 +279,33 @@ export interface Category {
   subcategories: SubCategory[]
 }
 
+export interface Author1 {
+  bio: string
+  title: string
+  user: {
+    realName: string
+    userSlug: string
+    userAvatar: string
+    __typename: string
+  }
+}
+
+export interface Author2 {
+  avatar: string
+  bio: string
+  realName: string
+  title: string
+  userSlug: string
+  __typename: string
+}
 export interface LeetBook {
   chapterNum: number
   summary: {
     content: string
   }
-  author: {
-    bio: string
-    title: string
-    user: {
-      realName: string
-      userSlug: string
-      userAvatar: string
-      __typename: string
-    }
-  }
+  workStatus: string
+  readTime: number
+  author: Author1 | Author2
   commonTags: {
     name: string
     nameTranslated: string
