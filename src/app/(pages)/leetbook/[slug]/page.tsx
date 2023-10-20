@@ -34,9 +34,6 @@ const LeetBookDetail = () => {
     {
       name: '目录',
     },
-    {
-      name: '精选评论',
-    },
   ]
 
   const getBookDetail = useCallback(() => {
