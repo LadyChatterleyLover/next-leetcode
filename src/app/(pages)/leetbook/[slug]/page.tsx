@@ -54,7 +54,7 @@ const LeetBookDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <div className='w-full h-full bg-[#D4E0E7]'>
+    <div className='w-full h-full leetbookContainer'>
       <div className='mx-auto py-8  max-w-[72rem] min-w-[1200px]'>
         <div className='flex w-full gap-x-10'>
           <div className='flex flex-col flex-1'>

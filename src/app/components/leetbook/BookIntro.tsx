@@ -2,6 +2,7 @@ import { Author2, LeetBook } from '@/app/types'
 import { PlusOutlined } from '@ant-design/icons'
 import { useReactive } from 'ahooks'
 import { Avatar, Button, Rate } from 'antd'
+import Markdown from 'react-markdown'
 
 interface Props {
   bookDetail: LeetBook
@@ -80,6 +81,15 @@ const BookIntro: React.FC<Props> = ({ bookDetail }) => {
           </div>
           <div className='mt-3 text-sm text-[#595959] leading-6 line-clamp-3'>{bookDetail.author.bio}</div>
         </div>
+
+        {bookDetail.descBlocks.map((item, index) => {
+          return (
+            <div className='mt-8 bookIntro' key={index}>
+              {index === bookDetail.descBlocks.length - 1 ? <h3>LeetBook 购买 / 使用须知</h3> : null}
+              <Markdown>{item.content}</Markdown>
+            </div>
+          )
+        })}
       </div>
     )
   )

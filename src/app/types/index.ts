@@ -312,6 +312,12 @@ export interface LeetBook {
     slug: string
     __typename: string
   }[]
+  descBlocks: {
+    content: string
+    title: string
+    type: string
+    __typename: string
+  }[]
   coverImg: string
   description: string
   forSaleAt: string

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import './styles/leetcode.css';
+@import './styles/bookIntro.css';
 
 * {
   margin: 0;
@@ -23,4 +24,17 @@ li {
 
 .tag-wiki img {
   max-width: 100% !important;
+}
+.leetbookContainer::before {
+  content: '';
+  height: 800px;
+  position: absolute;
+  inset: 0px;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)),
+    url(https://assets.leetcode.cn/aliyun-lc-upload/leetbook/cover/200901033854/Leetbook_%E5%9B%BE%E8%A7%A3%E7%AE%97%E6%B3%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_300x400.jpg);
+  background-position: 50% 17%;
+  opacity: 0.2;
+  background-size: cover;
+  filter: blur(20px);
+  z-index: -1;
 }

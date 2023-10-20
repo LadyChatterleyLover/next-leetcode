@@ -1,0 +1,33 @@
+.bookIntro {
+  line-height: 162%;
+}
+.book-overview li,
+.bookIntro li {
+  list-style: disc !important;
+}
+.bookIntro p {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.bookIntro h3 {
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0px;
+  color: #262626;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.bookIntro li {
+  padding-left: 4px;
+  font-size: 14px;
+}
+.bookIntro ul {
+  padding-left: 24px;
+  margin: 8px 8px 16px;
+}
+.bookIntro img {
+  width: 300px;
+  height: 200px;
+}
