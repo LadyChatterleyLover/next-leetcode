@@ -3,6 +3,7 @@
 import BookInfo from '@/app/components/leetbook/BookInfo'
 import BookIntro from '@/app/components/leetbook/BookIntro'
 import BookOverview from '@/app/components/leetbook/BookOverview'
+import HotBooks from '@/app/components/leetbook/HotBooks'
 import { LeetBook } from '@/app/types'
 import { useReactive } from 'ahooks'
 import axios from 'axios'
@@ -83,6 +84,7 @@ const LeetBookDetail = () => {
           </div>
           <div className='w-[300px] flex flex-col mt-10'>
             <BookIntro bookDetail={state.bookDetail!}></BookIntro>
+            <HotBooks slug={slug}></HotBooks>
           </div>
         </div>
       </div>

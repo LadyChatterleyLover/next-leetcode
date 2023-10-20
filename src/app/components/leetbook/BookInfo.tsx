@@ -25,7 +25,15 @@ const BookInfo: React.FC<Props> = ({ bookDetail }) => {
         </div>
         <div className='flex gap-x-5'>
           <div className='flex gap-x-4 mt-4'>
-            <Image alt='coverImg' src={bookDetail.coverImg} width={150} height={200}></Image>
+            <div className='leetbookCoverImageContainer'>
+              <Image
+                className='leetbookCoverImage'
+                alt='coverImg'
+                src={bookDetail.coverImg}
+                width={150}
+                height={200}
+              ></Image>
+            </div>
             <div className='flex flex-col gap-y-2'>
               <div className='font-bold text-2xl'>{bookDetail.title}</div>
               <div className='line-clamp-2 text-sm leading-6'>{bookDetail.description}</div>

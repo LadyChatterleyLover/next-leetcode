@@ -38,3 +38,12 @@ li {
   filter: blur(20px);
   z-index: -1;
 }
+.leetbookCoverImageContainer:hover {
+  transform: translateY(-5px);
+  transition: all 0.4s ease 0s;
+}
+.leetbookCoverImage:hover {
+  box-shadow: rgba(60, 54, 54, 0.5) 0px 0px 21px;
+  will-change: box-shadow;
+  transition: all 0.4s ease 0s;
+}
