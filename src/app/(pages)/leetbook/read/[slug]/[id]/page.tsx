@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useReactive } from 'ahooks'
 import axios from 'axios'
-import { find } from 'lodash-es'
 import { Menu, Spin } from 'antd'
 import { LeetBookPage } from '@/app/types'
 import { array2Tree } from '@/app/utils/bookArrayToTree'
@@ -156,9 +155,7 @@ const LeetBookRead = () => {
   }, [slug, state])
 
   useEffect(() => {
-    if (!state.chapterList.length) {
-      getBookPages()
-    }
+    getBookPages()
   }, [getBookPages, id, state])
 
   return state.chapterList.length ? (
@@ -171,7 +168,6 @@ const LeetBookRead = () => {
           openKeys={openKeys}
           onClick={({ key }) => {
             router.push(`/leetbook/read/${slug}/${key}`)
-            console.log('key', key)
           }}
         >
           {renderMenu(state.chapterList)}
