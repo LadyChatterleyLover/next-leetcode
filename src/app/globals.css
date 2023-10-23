@@ -1,16 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './styles/leetcode.css';
+@import './styles/leetbook.css';
 @import './styles/bookIntro.css';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-li {
-  list-style: none;
 }
 
 .book-overview li {

@@ -99,7 +99,13 @@ const ReadMenu = () => {
         )
       }
       return (
-        <Menu.Item key={item.id}>
+        <Menu.Item
+          key={item.id}
+          onClick={({ key }) => {
+            readIdStore.setReadId(key)
+            localSet('readId', key)
+          }}
+        >
           <div className='flex items-center gap-x-2'>
             {item.pageType === 'MIXED' ? (
               <svg
@@ -159,16 +165,7 @@ const ReadMenu = () => {
   }, [getBookPages, id, state])
 
   return state.chapterList.length ? (
-    <Menu
-      style={{ width: 350 }}
-      mode='inline'
-      selectedKeys={[id]}
-      openKeys={openKeys}
-      onClick={({ key }) => {
-        readIdStore.setReadId(key)
-        localSet('readId', key)
-      }}
-    >
+    <Menu style={{ width: 350 }} mode='inline' selectedKeys={[id]} openKeys={openKeys}>
       {renderMenu(state.chapterList)}
     </Menu>
   ) : (

@@ -2,6 +2,7 @@
   color: #595959;
   text-align: justify;
   font-size: 16px;
+  line-height: 162%;
 }
 .leetbook-info .align-center {
   text-align: center;
@@ -89,7 +90,14 @@
   background: linear-gradient(90deg, #08245a, #3c92f8);
 }
 
-.leetbook-info ul {
+.leetbook-info h1 {
+  font-size: 22px;
+  color: #000;
+  margin: 16px 0;
+}
+
+.leetbook-info ul,
+.leetbook-info ol {
   padding-left: 20px;
   margin: 8px 8px 16px;
 }
@@ -112,4 +120,27 @@
   border: 1px solid #fff;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
   line-height: 24px;
+}
+
+.leetbook-info table {
+  padding: 0px;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.leetbook-info table tr {
+  border-top: 1px solid #bfbfbf;
+  margin: 0;
+  background: #fff;
+}
+.leetbook-info table th {
+  font-weight: bold;
+}
+
+.leetbook-info table th,
+.leetbook-info table td {
+  border: 1px solid #bfbfbf;
+  margin: 0px;
+  padding: 6px 13px;
 }

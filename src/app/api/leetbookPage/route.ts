@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 export async function POST(req: Request) {
   const { pageId } = await req.json()
   try {
-    const res = await axios.post('https://leetcode.cn/graphql/noj-go', {
+    const res = await axios.post('https://leetcode.cn/graphql/', {
       operationName: 'leetbookPageDetail',
       variables: {
         pageId,
