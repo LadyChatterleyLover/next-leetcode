@@ -8,10 +8,12 @@ import { Menu, Spin } from 'antd'
 import { LeetBookPage } from '@/app/types'
 import { array2Tree } from '@/app/utils/bookArrayToTree'
 import SubMenu from 'antd/lib/menu/SubMenu'
+import { useReadIdStore } from '@/app/store/readId'
+import { localSet } from '@/app/utils/storage'
 
-const LeetBookRead = () => {
-  const router = useRouter()
+const ReadMenu = () => {
   const params = useParams()
+
   const state = useReactive<{
     chapterList: LeetBookPage[]
   }>({
@@ -21,13 +23,11 @@ const LeetBookRead = () => {
     return params.slug as string
   }, [params])
 
-  const id = useMemo(() => {
-    return params.id as string
-  }, [params])
+  const readIdStore = useReadIdStore()
+  const id = useReadIdStore(state => state.readId)
 
   const openKeys = useMemo(() => {
     let key: string[] = []
-    console.log('id', id)
     state.chapterList.map(item => {
       item.children.map(item1 => {
         if (id === item1.id) {
@@ -159,25 +159,21 @@ const LeetBookRead = () => {
   }, [getBookPages, id, state])
 
   return state.chapterList.length ? (
-    <div className='flex'>
-      <div className='w-[350px]'>
-        <Menu
-          style={{ width: 350 }}
-          mode='inline'
-          selectedKeys={[id]}
-          openKeys={openKeys}
-          onClick={({ key }) => {
-            router.push(`/leetbook/read/${slug}/${key}`)
-          }}
-        >
-          {renderMenu(state.chapterList)}
-        </Menu>
-      </div>
-      <div className='flex-1'></div>
-    </div>
+    <Menu
+      style={{ width: 350 }}
+      mode='inline'
+      selectedKeys={[id]}
+      openKeys={openKeys}
+      onClick={({ key }) => {
+        readIdStore.setReadId(key)
+        localSet('readId', key)
+      }}
+    >
+      {renderMenu(state.chapterList)}
+    </Menu>
   ) : (
     <Spin></Spin>
   )
 }
 
-export default LeetBookRead
+export default ReadMenu

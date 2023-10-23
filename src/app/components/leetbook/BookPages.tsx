@@ -6,12 +6,15 @@ import { useCallback, useEffect } from 'react'
 import { CaretRightOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
 import { array2Tree } from '@/app/utils/bookArrayToTree'
+import { useReadIdStore } from '@/app/store/readId'
+import { localSet } from '@/app/utils/storage'
 
 interface Props {
   slug: string
 }
 const BookPages: React.FC<Props> = ({ slug }) => {
   const router = useRouter()
+  const readIdStore = useReadIdStore()
 
   const state = useReactive<{
     chapterList: LeetBookPage[]
@@ -66,7 +69,9 @@ const BookPages: React.FC<Props> = ({ slug }) => {
                         <div
                           className='flex h-11 items-center justify-between cursor-pointer pl-3 rounded text-[#262626] hover:bg-[#0000000a]'
                           onClick={() => {
-                            router.push(`/leetbook/read/${slug}/${child.id}`)
+                            localSet('readId', child.id)
+                            readIdStore.setReadId(child.id)
+                            router.push(`/leetbook/read/${slug}`)
                           }}
                         >
                           <div className='flex items-center gap-x-2'>
