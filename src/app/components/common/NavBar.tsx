@@ -8,7 +8,7 @@ const NavBar = () => {
   const nabBars = [
     {
       name: '学习',
-      path: '/',
+      path: '/study',
     },
     {
       name: '题库',
