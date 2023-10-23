@@ -114,7 +114,14 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
                 <Avatar size={28} src={item.authorAvatarUrl}></Avatar>
                 <div className='flex flex-col gap-2 flex-1'>
                   <div className='text-sm text-[#0000008c]'>{item.authorNickname}</div>
-                  <div className='hover:text-[#40a9ff] font-bold'>{item.contentTitle}</div>
+                  <div
+                    className='hover:text-[#40a9ff] font-bold'
+                    onClick={() => {
+                      window.open(`${window.location.href}/tag/discuss/${item.contentUuid}`)
+                    }}
+                  >
+                    {item.contentTitle}
+                  </div>
                   <div
                     className='line-clamp-2 text-[#0000008c] text-sm'
                     style={{ wordBreak: 'break-all' }}

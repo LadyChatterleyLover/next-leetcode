@@ -41,15 +41,17 @@ const DiscussCircle = () => {
   }, [])
 
   return (
-    <div className='flex gap-x-5 w-full'>
-      <div className='w-[800px]'>
-        <DiscussDetail detail={state.detail!}></DiscussDetail>
-        <DiscussComment uuid={uuid} detail={state.detail!}></DiscussComment>
-      </div>
-      <div className='w-[260px] flex flex-col gap-y-3'>
-        <DiscussAssociation detail={state.detail!}></DiscussAssociation>
-        <QaBriefHotQuestions></QaBriefHotQuestions>
-        <DiscussBook uuid={uuid}></DiscussBook>
+    <div className='mx-auto w-full grow p-4 md:mt-0 md:max-w-[888px] md:p-6 lg:max-w-[1100px] mt-[50px] bg-white'>
+      <div className='flex gap-x-5 w-full'>
+        <div className='w-[800px]'>
+          <DiscussDetail detail={state.detail!}></DiscussDetail>
+          <DiscussComment uuid={uuid} detail={state.detail!}></DiscussComment>
+        </div>
+        <div className='w-[260px] flex flex-col gap-y-3'>
+          <DiscussAssociation detail={state.detail!}></DiscussAssociation>
+          <QaBriefHotQuestions></QaBriefHotQuestions>
+          <DiscussBook uuid={uuid}></DiscussBook>
+        </div>
       </div>
     </div>
   )

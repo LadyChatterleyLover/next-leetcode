@@ -31,7 +31,7 @@ const Tag = () => {
   ]
 
   return (
-    <div className='flex'>
+    <div className='flex '>
       <div>
         <TagWiki slug={slug}></TagWiki>
         <div className='mt-8 flex items-center'>
