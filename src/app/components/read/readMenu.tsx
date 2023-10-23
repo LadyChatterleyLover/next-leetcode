@@ -165,7 +165,7 @@ const ReadMenu = () => {
   }, [getBookPages, id, state])
 
   return state.chapterList.length ? (
-    <Menu style={{ width: 350 }} mode='inline' selectedKeys={[id]} openKeys={openKeys}>
+    <Menu style={{ width: 350 }} mode='inline' selectedKeys={[id]} defaultOpenKeys={openKeys}>
       {renderMenu(state.chapterList)}
     </Menu>
   ) : (

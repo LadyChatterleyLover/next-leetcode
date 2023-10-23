@@ -90,10 +90,18 @@
   background: linear-gradient(90deg, #08245a, #3c92f8);
 }
 
-.leetbook-info h1 {
-  font-size: 22px;
+.leetbook-info h1,
+.leetbook-info h2,
+.leetbook-info h3,
+.leetbook-info h4,
+.leetbook-info h5,
+.leetbook-info h6 {
   color: #000;
   margin: 16px 0;
+}
+
+.leetbook-info h1 {
+  font-size: 22px;
 }
 
 .leetbook-info ul,
@@ -120,6 +128,9 @@
   border: 1px solid #fff;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
   line-height: 24px;
+}
+.leetbook-info img {
+  max-width: 100%;
 }
 
 .leetbook-info table {

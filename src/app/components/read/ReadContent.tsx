@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
+import { Divider, Spin } from 'antd'
 import { useReadIdStore } from '@/app/store/readId'
 import axios from 'axios'
 import { useReactive } from 'ahooks'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Divider, Spin } from 'antd'
-import { LeetBookPage } from '@/app/types'
+import rehypeHighlight from 'rehype-highlight'
 
 interface PageBlock {
   type: string
@@ -93,7 +93,7 @@ const ReadContent = () => {
       <div className='leetbook-info'>
         {state.pageBlock.map((item, index) => {
           return (
-            <Markdown key={index} remarkPlugins={[remarkGfm]}>
+            <Markdown key={index} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
               {item.value}
             </Markdown>
           )
