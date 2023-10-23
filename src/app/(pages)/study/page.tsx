@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+
 import Categories from '../../components/study/Categories'
 import PanelCol from '../../components/study/PanelCol'
 
