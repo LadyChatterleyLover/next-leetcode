@@ -31,7 +31,7 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
     homeFeedProblems: null,
   })
 
-  const getPlanList = () => {
+  const getMorePlanList = () => {
     axios
       .post('/api/homePageFeeds', {
         channelId: currentId,
@@ -44,16 +44,30 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
       })
   }
 
+  const getPlanList = () => {
+    state.homeFeedPlainContents = []
+    axios
+      .post('/api/homePageFeeds', {
+        channelId: currentId,
+      })
+      .then(res => {
+        const data = res.data.data
+        state.homeFeedCompanies = data.homeFeedCompanies.companies
+        state.homeFeedPlainContents = data.homeFeedPlainContents.items
+        state.homeFeedProblems = data.homeFeedProblems
+      })
+  }
+
   const renderStatus = (status: string) => {
     if (!status) {
       return <div></div>
     }
     if (status.toUpperCase() === 'AC') {
-      return <div className='text-sm text-[30000008c]'>已解答</div>
+      return <div className='text-sm text-[#30000008c]'>已解答</div>
     } else if (status.toUpperCase() === 'TRIED') {
-      return <div className='text-sm text-[30000008c]'>尝试过</div>
+      return <div className='text-sm text-[#30000008c]'>尝试过</div>
     } else {
-      return <div className='text-sm text-[30000008c]'>未完成</div>
+      return <div className='text-sm text-[#30000008c]'>未完成</div>
     }
   }
 
@@ -73,9 +87,9 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
   useEffect(() => {
     getPlanList()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [currentId])
 
-  return state.homeFeedPlainContents.length ? (
+  return state.homeFeedPlainContents.length || state.homeFeedCompanies.length || state.homeFeedProblems ? (
     <div
       className='mt-8'
       id='scrollableDiv'
@@ -87,7 +101,7 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
     >
       <InfiniteScroll
         dataLength={state.homeFeedPlainContents.length}
-        next={getPlanList}
+        next={getMorePlanList}
         hasMore={state.homeFeedPlainContents.length > 0}
         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
         endMessage={<Divider plain>已经到底啦 🤐</Divider>}
@@ -119,8 +133,8 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
           <div className='flex items-start mt-3'>
             {renderStatusIcon(state.homeFeedProblems?.recommendationReason as string)}
           </div>
-          <div>
-            <div className='flex items-center justify-between'>
+          <div className='w-full'>
+            <div className='flex items-center justify-between w-full'>
               <div>
                 <div>{renderStatus(state.homeFeedProblems?.recommendationReason as string)}</div>
                 <div className='mb-2'>{state.homeFeedProblems?.problemTitle}</div>
