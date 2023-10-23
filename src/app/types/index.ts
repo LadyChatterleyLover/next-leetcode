@@ -414,3 +414,17 @@ export interface HomeFeedProblems {
     title: string
   }[]
 }
+
+export interface PicCardItem {
+  cardImg: string
+  containsPremium: boolean
+  description: string
+  duration: number
+  isLightCardFontColor: boolean
+  isVirtual: boolean
+  originStartTime: number
+  startTime: number
+  title: string
+  titleSlug: string
+  __typename: string
+}

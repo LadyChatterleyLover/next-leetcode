@@ -1,7 +1,7 @@
 'use client'
 
 import ReadContent from '@/app/components/read/ReadContent'
-import ReadMenu from '@/app/components/read/ReadMenu'
+import ReadMenu from '@/app/components/read/ReadMenus'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
