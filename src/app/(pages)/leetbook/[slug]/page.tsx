@@ -76,7 +76,7 @@ const LeetBookDetail = () => {
             </div>
             <div className='mt-8'>
               {state.currentIndex === 0 ? <BookOverview bookDetail={state.bookDetail!}></BookOverview> : null}
-              {state.currentIndex === 1 ? <BookPages slug={slug}></BookPages> : null}
+              {state.currentIndex === 1 ? <BookPages slug={slug} title={state.bookDetail?.title!}></BookPages> : null}
             </div>
           </div>
           <div className='w-[300px] flex flex-col mt-10'>

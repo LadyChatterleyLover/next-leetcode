@@ -11,8 +11,9 @@ import { localSet } from '@/app/utils/storage'
 
 interface Props {
   slug: string
+  title: string
 }
-const BookPages: React.FC<Props> = ({ slug }) => {
+const BookPages: React.FC<Props> = ({ slug, title }) => {
   const router = useRouter()
   const readIdStore = useReadIdStore()
 
@@ -71,7 +72,7 @@ const BookPages: React.FC<Props> = ({ slug }) => {
                           onClick={() => {
                             localSet('readId', child.id)
                             readIdStore.setReadId(child.id)
-                            router.push(`/leetbook/read/${slug}`)
+                            router.push(`/leetbook/read/${slug}?title=${title}`)
                           }}
                         >
                           <div className='flex items-center gap-x-2'>
