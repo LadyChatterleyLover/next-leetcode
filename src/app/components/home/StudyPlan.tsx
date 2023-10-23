@@ -6,6 +6,7 @@ import { useReactive } from 'ahooks'
 import { Spin } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface Plan {
   cover: string
@@ -18,6 +19,7 @@ interface Plan {
 }
 
 const StudyPlan = () => {
+  const router = useRouter()
   const state = useReactive<{
     studyPlanList: Plan[]
   }>({
@@ -27,7 +29,6 @@ const StudyPlan = () => {
   const getStudyPlan = useCallback(() => {
     axios.get('/api/studyPlanHome').then(res => {
       state.studyPlanList = res.data.data
-      console.log('res', res.data.data)
     })
   }, [state])
 
@@ -37,7 +38,12 @@ const StudyPlan = () => {
 
   return state.studyPlanList.length ? (
     <div>
-      <div className='flex gap-x-1 cursor-pointer'>
+      <div
+        className='flex gap-x-1 cursor-pointer'
+        onClick={() => {
+          router.push('/studyPlan')
+        }}
+      >
         <div className='text-black font-[600]'>学习计划</div>
         <RightOutlined style={{ color: '#949494', fontSize: 12 }} />
       </div>

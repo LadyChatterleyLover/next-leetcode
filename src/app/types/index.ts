@@ -369,3 +369,48 @@ export interface LeetBookPage {
   __typename: string
   children: LeetBookPage[]
 }
+
+export interface HomeFeedCompanies {
+  logoUrl: string
+  name: string
+  popularity: number
+  slug: string
+  trending: number
+}
+
+export interface HomeFeedPlainContents {
+  authorAvatarUrl: string
+  authorId: number
+  authorNickname: string
+  authorSlug: string
+  contentCollectCount: number
+  contentCommentCount: number
+  contentCoverUrl: string
+  contentSlug: string
+  contentSummary: string
+  contentTitle: string
+  contentType: string
+  contentUpvoteCount: number
+  contentUuid: string
+  isCollected: boolean
+  isCommented: boolean
+  isUpvoted: boolean
+  publishTimestamp: number
+}
+
+export interface HomeFeedProblems {
+  contentType: string
+  offset: number
+  problemSlug: string
+  problemTitle: string
+  recommendationReason: string
+  solutions: {
+    authorAvatarUrl: string
+    authorName: string
+    authorSlug: string
+    id: number
+    slug: string
+    summary: string
+    title: string
+  }[]
+}
