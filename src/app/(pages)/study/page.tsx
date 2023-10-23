@@ -1,6 +1,6 @@
 import React from 'react'
-import Categories from '../../components/home/Categories'
-import PanelCol from '../../components/home/PanelCol'
+import Categories from '../../components/study/Categories'
+import PanelCol from '../../components/study/PanelCol'
 
 const Home = () => {
   return (
