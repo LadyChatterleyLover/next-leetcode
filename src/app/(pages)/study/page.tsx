@@ -1,8 +1,9 @@
 'use client'
 
 import Categories from '../../components/study/Categories'
-import PanelCol from '../../components/study/PanelCol'
+import dynamic from 'next/dynamic'
 
+const PanelCol = dynamic(() => import('../../components/study/PanelCol'), { ssr: false })
 const Home = () => {
   return (
     <>
