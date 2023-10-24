@@ -428,3 +428,37 @@ export interface PicCardItem {
   titleSlug: string
   __typename: string
 }
+
+export interface LocalRank {
+  attendedContestCount: number
+  currentRatingRanking: number
+  dataRegion: string
+  isDeleted: boolean
+  user: {
+    realName: string
+    userAvatar: string
+    userSlug: string
+    __typename: string
+  }
+  __typename: string
+}
+
+export interface GlobalRank {
+  currentGlobalRanking: number
+  dataRegion: string
+  isDeleted: boolean
+  ranking: string
+  user: {
+    profile: {
+      countryCode: string | null
+      countryName: string | null
+      realName: string
+      userAvatar: string
+      userSlug: string
+      __typename: string
+    }
+    username: string
+    __typename: string
+  }
+  __typename: string
+}

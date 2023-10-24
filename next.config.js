@@ -9,6 +9,7 @@ const nextConfig = {
       'assets.leetcode-cn.com',
       'pic.leetcode-cn.com',
       'pic.leetcode.cn',
+      'assets.leetcode.com',
     ],
   },
 }
