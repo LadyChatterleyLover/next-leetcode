@@ -462,3 +462,21 @@ export interface GlobalRank {
   }
   __typename: string
 }
+
+export interface Contests {
+  cardImg: string
+  containsPremium: boolean
+  description: string
+  duration: number
+  isEeExamContest: boolean
+  isVirtual: boolean
+  originStartTime: number
+  startTime: number
+  title: string
+  titleSlug: string
+  __typename: string
+  company: {
+    watermark: string
+    __typename: string
+  }
+}

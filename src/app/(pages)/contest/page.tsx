@@ -1,3 +1,4 @@
+import History from '@/app/components/contest/History'
 import PicCard from '@/app/components/contest/PicCard'
 import Rank from '@/app/components/contest/Rank'
 import Wrapper from '@/app/components/contest/Wrapper'
@@ -19,7 +20,9 @@ const Contest = () => {
         <div className='flex-1'>
           <Rank></Rank>
         </div>
-        <div className='flex-1'>123</div>
+        <div className='flex-1'>
+          <History></History>
+        </div>
       </div>
     </div>
   )
