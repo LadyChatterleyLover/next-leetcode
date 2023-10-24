@@ -15,15 +15,19 @@ interface Tag {
 const ColumnsTag = () => {
   const state = useReactive<{
     columnsTagList: Tag[]
+    contentType: string
+    subjectSlug: string
   }>({
     columnsTagList: [],
+    contentType: 'Q_AND_A',
+    subjectSlug: 'career',
   })
 
   const getColumnsTag = () => {
     axios
       .post('/api/columnsRecommendedTags', {
-        contentType: 'Q_AND_A',
-        subjectSlug: 'career',
+        contentType: state.contentType,
+        subjectSlug: state.subjectSlug,
       })
       .then(res => {
         const data = res.data.data
