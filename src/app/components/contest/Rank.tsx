@@ -6,9 +6,12 @@ import { useReactive } from 'ahooks'
 import { Button, Checkbox, Spin } from 'antd'
 import axios from 'axios'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const Rank = () => {
+  const router = useRouter()
+
   const state = useReactive<{
     flag: boolean
     localRangList: LocalRank[]
@@ -22,20 +25,27 @@ const Rank = () => {
   })
 
   const getLocalRangList = () => {
-    axios.get('/api/localRanking').then(res => {
-      const data = res.data.data
-      state.total = data.totalUsers
-      state.localRangList = data.rankingNodes
-      console.log('res', res.data.data)
-    })
+    axios
+      .post('/api/localRanking', {
+        pageNum: 1,
+      })
+      .then(res => {
+        const data = res.data.data
+        state.total = data.totalUsers
+        state.localRangList = data.rankingNodes
+      })
   }
 
   const getGlobalRangList = () => {
-    axios.get('/api/globalRanking').then(res => {
-      const data = res.data.data
-      state.total = data.totalUsers
-      state.globalRangList = data.rankingNodes
-    })
+    axios
+      .post('/api/globalRanking', {
+        pageNum: 1,
+      })
+      .then(res => {
+        const data = res.data.data
+        state.total = data.totalUsers
+        state.globalRangList = data.rankingNodes
+      })
   }
 
   useEffect(() => {
@@ -194,7 +204,14 @@ const Rank = () => {
                   )
                 })}
             <div className='flex justify-center items-center h-[80px]'>
-              <Button type='link'>显示更多</Button>
+              <Button
+                type='link'
+                onClick={() => {
+                  router.push(`/contest/${!state.flag ? 'local' : 'global'}`)
+                }}
+              >
+                显示更多
+              </Button>
             </div>
           </div>
         </div>

@@ -20,7 +20,6 @@ const PicCard = () => {
   const getPicCardList = () => {
     axios.get('/api/contestUpcomingContests').then(res => {
       state.picCardList = res.data.data
-      console.log('res', res.data.data)
     })
   }
 

@@ -31,7 +31,6 @@ const History = () => {
         const data = res.data.data
         state.total = data.totalNum
         state.contestsList = data.contests
-        console.log('data', data)
       }),
   ]
 
@@ -56,10 +55,10 @@ const History = () => {
         <div className='px-5 leading-10 font-[600] text-3xl'>往届竞赛回顾</div>
         <div className='text-[#afafaf] leading-[18px] text-sm px-5 mt-1 mb-8'>参加虚拟竞赛，为排位赛做好充足准备</div>
         <div
-          className='flex justify-center items-center cursor-pointer w-[60px] h-[60px] bg-white rounded-[30px] absolute bottom-[-20px] right-[10px]'
+          className='flex justify-center items-center cursor-pointer w-[60px] h-[60px] group  text-white bg-white rounded-[30px] absolute bottom-[-20px] right-[10px]'
           style={{ border: '1px solid #ddd', boxShadow: '0 2px 10px rgba(0,0,0,0.15)' }}
         >
-          <NodeExpandOutlined style={{ color: '#ba2bba', fontSize: 30 }} />
+          <NodeExpandOutlined className='group-hover:text-white' style={{ color: '#ba2bba', fontSize: 30 }} />
         </div>
       </div>
       <div
@@ -108,18 +107,21 @@ const History = () => {
           })}
         </>
       ) : null}
-      <div className='flex justify-end mt-8'>
-        <Pagination
-          current={state.pageNum}
-          total={state.total}
-          showSizeChanger={false}
-          onChange={(page, size) => {
-            state.pageNum = page
-            state.pageSize = size
-            getHistoryList()
-          }}
-        ></Pagination>
-      </div>
+      {state.contestsList.length ? (
+        <div className='flex justify-end mt-8'>
+          <Pagination
+            current={state.pageNum}
+            pageSize={state.pageSize}
+            total={state.total}
+            showSizeChanger={false}
+            onChange={(page, size) => {
+              state.pageNum = page
+              state.pageSize = size
+              getHistoryList()
+            }}
+          ></Pagination>
+        </div>
+      ) : null}
     </div>
   )
 }

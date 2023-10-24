@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { NextResponse } from 'next/server'
 
-export async function GET() {
+export async function POST(req: Request) {
+  const { pageNum = 1 } = await req.json()
   try {
     const res = await axios.post('https://leetcode.cn/graphql/', {
       operationName: null,
       variables: {},
-      query:
-        '{\n  globalRanking(page: 1) {\n    totalUsers\n    userPerPage\n    myRank {\n      ranking\n      currentGlobalRanking\n      dataRegion\n      isDeleted\n      user {\n        username\n        profile {\n          userSlug\n          userAvatar\n          countryCode\n          countryName\n          realName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    rankingNodes {\n      ranking\n      currentGlobalRanking\n      dataRegion\n      isDeleted\n      user {\n        username\n        profile {\n          userSlug\n          userAvatar\n          countryCode\n          countryName\n          realName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n',
+      query: `{\n  globalRanking(page: ${pageNum}) {\n    totalUsers\n    userPerPage\n    myRank {\n      ranking\n      currentGlobalRanking\n      dataRegion\n      isDeleted\n      user {\n        username\n        profile {\n          userSlug\n          userAvatar\n          countryCode\n          countryName\n          realName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    rankingNodes {\n      ranking\n      currentGlobalRanking\n      dataRegion\n      isDeleted\n      user {\n        username\n        profile {\n          userSlug\n          userAvatar\n          countryCode\n          countryName\n          realName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n`,
     })
     return NextResponse.json({
       code: 200,
