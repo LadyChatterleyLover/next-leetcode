@@ -4,6 +4,7 @@ import { useReactive } from 'ahooks'
 import { Job, JobArticle } from '@/app/types'
 import Image from 'next/image'
 import { Pagination } from 'antd'
+import JobForm from './JobForm'
 
 const Jobs = () => {
   const state = useReactive<{
@@ -81,7 +82,6 @@ const Jobs = () => {
         const data = res.data.data
         state.jobList = data.jobs
         state.total = data.count
-        console.log('res', data)
       })
   }
 
@@ -103,7 +103,7 @@ const Jobs = () => {
   }, [])
 
   return (
-    <div className='flex'>
+    <>
       <div className='flex items-center gap-x-5 mb-5'>
         {navs.map((item, index) => {
           return (
@@ -127,49 +127,59 @@ const Jobs = () => {
           )
         })}
       </div>
-      {state.currentIndex === 0
-        ? state.jobList.map(item => {
-            return (
-              <div key={item.uuid} className='p-4 rounded-lg bg-white mb-3 cursor-pointer flex items-center gap-x-4'>
-                <Image alt='' src={item.companyLogo} width={48} height={48}></Image>
-                <div className='flex-1 flex flex-col gap-y-3 text-sm'>
-                  <div className='flex items-center justify-between'>
-                    <div>{item.title}</div>
-                    <div className='text-[#2db55d]'>{item.salaryDisplay}</div>
+      <div className='flex gap-x-5'>
+        <div className='flex-1'>
+          {state.currentIndex === 0
+            ? state.jobList.map(item => {
+                return (
+                  <div
+                    key={item.uuid}
+                    className='p-4 rounded-lg bg-white mb-3 cursor-pointer flex items-center gap-x-4'
+                  >
+                    <Image alt='' src={item.companyLogo} width={48} height={48}></Image>
+                    <div className='flex-1 flex flex-col gap-y-3 text-sm'>
+                      <div className='flex items-center justify-between'>
+                        <div>{item.title}</div>
+                        <div className='text-[#2db55d]'>{item.salaryDisplay}</div>
+                      </div>
+                      <div className='flex items-center gap-x-1  text-[#3c3c4399]'>
+                        <div>{item.chinaCityDisplay} /</div>
+                        <div>{item.workExperienceDisplay} /</div>
+                        <div>{item.educationDisplay}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className='flex items-center gap-x-1  text-[#3c3c4399]'>
-                    <div>{item.chinaCityDisplay} /</div>
-                    <div>{item.workExperienceDisplay} /</div>
-                    <div>{item.educationDisplay}</div>
+                )
+              })
+            : state.jobArticle.map((item, index) => {
+                return (
+                  <div key={index} className='p-4 rounded-lg bg-white mb-3 cursor-pointer flex items-center gap-x-4'>
+                    <Image alt='' src={item.companyLogo} width={48} height={48}></Image>
+                    <div className='flex-1 flex flex-col gap-y-3 text-sm'>
+                      <div>{item.title}</div>
+                      <div className=' text-[#3c3c4399] line-clamp-1'>{item.summary}</div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )
-          })
-        : state.jobArticle.map((item, index) => {
-            return (
-              <div key={index} className='p-4 rounded-lg bg-white mb-3 cursor-pointer flex items-center gap-x-4'>
-                <Image alt='' src={item.companyLogo} width={48} height={48}></Image>
-                <div className='flex-1 flex flex-col gap-y-3 text-sm'>
-                  <div>{item.title}</div>
-                  <div className=' text-[#3c3c4399] line-clamp-1'>{item.summary}</div>
-                </div>
-              </div>
-            )
-          })}
-      <Pagination
-        current={state.current}
-        pageSize={state.limit}
-        pageSizeOptions={[10, 20, 50, 100]}
-        total={state.total}
-        onChange={(page, size) => {
-          state.current = page
-          state.limit = size
-          state.skip = (page - 1) * size
-          state.currentIndex === 0 ? getJobList() : getJobArticle()
-        }}
-      ></Pagination>
-    </div>
+                )
+              })}
+          <Pagination
+            current={state.current}
+            pageSize={state.limit}
+            pageSizeOptions={[10, 20, 50, 100]}
+            total={state.total}
+            onChange={(page, size) => {
+              state.current = page
+              state.limit = size
+              state.skip = (page - 1) * size
+              state.currentIndex === 0 ? getJobList() : getJobArticle()
+            }}
+          ></Pagination>
+        </div>
+        <div className='w-[256px]'>
+          <JobForm></JobForm>
+        </div>
+      </div>
+    </>
   )
 }
 
