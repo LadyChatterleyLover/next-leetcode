@@ -15,7 +15,6 @@ const Discuss = () => {
   const state = useReactive<{
     columnsTagList: ColumnsTagItem[]
     contentType: string
-    slug: string
     subjectSlug: string
     discussList: DiscussItem[]
     isFeatured: boolean
@@ -25,7 +24,6 @@ const Discuss = () => {
   }>({
     columnsTagList: [],
     contentType: 'Q_AND_A',
-    slug: 'career',
     discussList: [],
     subjectSlug: 'interview',
     isFeatured: false,
@@ -38,7 +36,7 @@ const Discuss = () => {
     axios
       .post('/api/columnsRecommendedTags', {
         contentType: state.contentType,
-        subjectSlug: state.slug,
+        subjectSlug: state.subjectSlug,
       })
       .then(res => {
         const data = res.data.data
@@ -51,16 +49,20 @@ const Discuss = () => {
     state.isFeatured = feat
   }
 
+  const setSlug = (slug: string) => {
+    state.subjectSlug = slug
+  }
+
   useEffect(() => {
     getColumnsTag()
-  }, [])
+  }, [state.subjectSlug])
 
   return (
     <div className='w-full h-full bg-[#f7f8fa]'>
       <div className='mx-auto w-full grow p-4 md:mt-0 md:max-w-[888px] md:p-6 lg:max-w-[1200px] mt-[50px] '>
         <div className='flex gap-x-5'>
           <div className='flex-1'>
-            <PicCard></PicCard>
+            <PicCard setSlug={setSlug}></PicCard>
             <Trend setTrend={setTrend}></Trend>
             <ColumnsTag columnsTagList={state.columnsTagList}></ColumnsTag>
             <QaList
