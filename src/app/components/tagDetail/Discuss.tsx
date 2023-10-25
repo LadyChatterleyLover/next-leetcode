@@ -2,9 +2,10 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useReactive } from 'ahooks'
 import { DiscussItem } from '@/app/types'
-import { Avatar, Button, Divider, Image, Input, Spin } from 'antd'
+import { Avatar, Button, Divider, Input, Spin } from 'antd'
 import { CommentOutlined, EyeOutlined, LikeOutlined, SearchOutlined, StarOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const Discuss = ({ slug }: { slug: string }) => {
   const router = useRouter()
@@ -12,7 +13,7 @@ const Discuss = ({ slug }: { slug: string }) => {
     isFeatured: boolean
     pageNum: number
     query: string
-    discuccList: DiscussItem[]
+    discussList: DiscussItem[]
     loading: boolean
     hasMore: boolean
     currentIndex: number
@@ -20,7 +21,7 @@ const Discuss = ({ slug }: { slug: string }) => {
     isFeatured: false,
     pageNum: 0,
     query: '',
-    discuccList: [],
+    discussList: [],
     loading: false,
     hasMore: true,
     currentIndex: 0,
@@ -39,7 +40,7 @@ const Discuss = ({ slug }: { slug: string }) => {
 
   const getDiscussList = () => {
     state.loading = true
-    state.discuccList = []
+    state.discussList = []
     axios
       .post('/api/discussList', {
         isFeatured: state.isFeatured,
@@ -48,7 +49,7 @@ const Discuss = ({ slug }: { slug: string }) => {
         query: state.query,
       })
       .then(res => {
-        state.discuccList = state.currentIndex === 0 ? [...state.discuccList, ...res.data.data] : res.data.data
+        state.discussList = state.currentIndex === 0 ? [...state.discussList, ...res.data.data] : res.data.data
         state.hasMore = res.data.data.length
       })
       .finally(() => {
@@ -103,7 +104,7 @@ const Discuss = ({ slug }: { slug: string }) => {
         <div>
           {!state.loading ? (
             <>
-              {state.discuccList.map((item, index) => {
+              {state.discussList.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -117,14 +118,7 @@ const Discuss = ({ slug }: { slug: string }) => {
                   >
                     {item.thumbnail ? (
                       <div className='flex items-center justify-center mr-4'>
-                        <Image
-                          alt='thumbnail'
-                          src={item.thumbnail}
-                          width={200}
-                          preview={false}
-                          height={120}
-                          style={{ objectFit: 'cover' }}
-                        ></Image>
+                        <Image alt='thumbnail' src={item.thumbnail} width={200} height={120}></Image>
                       </div>
                     ) : null}
                     <div className='flex flex-col flex-1 cursor-pointer'>
@@ -150,9 +144,11 @@ const Discuss = ({ slug }: { slug: string }) => {
                         ) : null}
                       </div>
                       <div
-                        className='mt-3 line-clamp-2 leading-6 text-sm text-[#595959] cursor-pointer'
+                        className={`mt-3 leading-6 text-sm text-[#595959] cursor-pointer ${
+                          item.thumbnail ? 'line-clamp-1' : 'line-clamp-2'
+                        }`}
                         style={{ wordBreak: 'break-word' }}
-                        dangerouslySetInnerHTML={{ __html: item.content }}
+                        dangerouslySetInnerHTML={{ __html: item.summary }}
                       ></div>
                       <div className='mt-8 flex items-center text-[#8c8c8c]'>
                         <div className='flex items-center gap-x-2 cursor-pointer hover:text-[#0fb55d]'>
