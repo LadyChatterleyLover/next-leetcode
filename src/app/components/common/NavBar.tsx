@@ -22,6 +22,10 @@ const NavBar = () => {
       name: '讨论',
       path: '/discuss',
     },
+    {
+      name: '求职',
+      path: '/company',
+    },
   ]
   return (
     <div className='flex items-center gap-x-7 ml-5 h-full'>
