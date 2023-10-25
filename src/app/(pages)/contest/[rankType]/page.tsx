@@ -74,7 +74,7 @@ const RankDetail = () => {
   }, [])
 
   return (
-    <div className='mx-auto w-full grow p-4 md:mt-0 md:max-w-[888px] md:p-6 lg:max-w-[1100px] mt-[50px] bg-white'>
+    <div className='mx-auto w-full grow p-4 md:mt-0 md:max-w-[888px] md:p-6 lg:max-w-[1200px] mt-[50px] bg-white'>
       <div
         className='flex items-center  text-[#afafaf] gap-x-1 hover:text-[#1890ff] cursor-pointer'
         onClick={() => {

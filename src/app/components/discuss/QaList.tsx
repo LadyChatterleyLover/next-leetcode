@@ -49,7 +49,6 @@ const QaList = () => {
         state.discussList = data.nodes
         state.pageSize = data.pageSize
         state.total = data.totalNum
-        console.log('res', data)
       })
   }
 
