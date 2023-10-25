@@ -22,7 +22,6 @@ const HotSearch = () => {
   const getHotSearchCompany = () => {
     axios.get('/api/interviewHotSearchHistory').then(res => {
       state.companyList = res.data.data.map((item: { company: Company }) => item.company)
-      console.log('res', state.companyList)
     })
   }
 
@@ -31,7 +30,7 @@ const HotSearch = () => {
   }, [])
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center '>
       <label className='w-[780px] inline-flex relative'>
         <input
           className='w-full rounded-xl border-2 outline-none h-10 text-sm py-1 px-2 text-[#262626] border-solid border-[#dfdfdf] placeholder:text-sm hover:border-[#0a84ff] focus:border-[#0a84ff]'
