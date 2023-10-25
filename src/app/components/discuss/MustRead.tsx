@@ -5,6 +5,7 @@ import { useReactive } from 'ahooks'
 import axios from 'axios'
 import { Avatar, Spin } from 'antd'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface TrendingContent {
   articleType: number
@@ -22,6 +23,8 @@ interface TrendingContent {
 }
 
 const MustRead = () => {
+  const router = useRouter()
+
   const state = useReactive<{
     trendingContentList: TrendingContent[]
     currentSlug: string
@@ -96,7 +99,13 @@ const MustRead = () => {
             <div>
               {state.trendingContentList.map((item, index) => {
                 return (
-                  <div key={item.uuid} className='py-2 mb-3 cursor-pointer'>
+                  <div
+                    key={item.uuid}
+                    className='py-2 mb-3 cursor-pointer hover:bg-[#f7f7f8] px-2'
+                    onClick={() => {
+                      router.push('/tag/discuss/' + item.uuid)
+                    }}
+                  >
                     <div className='flex'>
                       <div className={`min-w-[10px] mr-[6px] relative top-1 ${index < 3 ? 'text-[#ffa116]' : ''}`}>
                         {index + 1}
