@@ -480,3 +480,11 @@ export interface Contests {
     __typename: string
   }
 }
+
+export interface ColumnsTagItem {
+  imgUrl: string
+  name: string
+  nameTranslated: string
+  slug: string
+  __typename: string
+}

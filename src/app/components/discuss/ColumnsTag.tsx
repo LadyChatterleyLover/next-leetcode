@@ -1,47 +1,15 @@
 'use client'
 
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useReactive } from 'ahooks'
+import { ColumnsTagItem } from '@/app/types'
 
-interface Tag {
-  imgUrl: string
-  name: string
-  nameTranslated: string
-  slug: string
-  __typename: string
+interface Props {
+  columnsTagList: ColumnsTagItem[]
 }
 
-const ColumnsTag = () => {
-  const state = useReactive<{
-    columnsTagList: Tag[]
-    contentType: string
-    subjectSlug: string
-  }>({
-    columnsTagList: [],
-    contentType: 'Q_AND_A',
-    subjectSlug: 'career',
-  })
-
-  const getColumnsTag = () => {
-    axios
-      .post('/api/columnsRecommendedTags', {
-        contentType: state.contentType,
-        subjectSlug: state.subjectSlug,
-      })
-      .then(res => {
-        const data = res.data.data
-        state.columnsTagList = data.slice(0, 8)
-      })
-  }
-
-  useEffect(() => {
-    getColumnsTag()
-  }, [])
-
-  return state.columnsTagList.length ? (
+const ColumnsTag: React.FC<Props> = ({ columnsTagList }) => {
+  return columnsTagList.length ? (
     <div className='flex items-center gap-5 my-6'>
-      {state.columnsTagList.map(item => {
+      {columnsTagList.map(item => {
         return (
           <div
             key={item.slug}

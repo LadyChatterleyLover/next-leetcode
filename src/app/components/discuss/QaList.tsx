@@ -1,48 +1,46 @@
 'use client'
 
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useReactive } from 'ahooks'
-import { DiscussItem } from '@/app/types'
 import { Avatar, Divider, Pagination, Spin } from 'antd'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { CommentOutlined, EyeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons'
+import { DiscussItem } from '@/app/types'
+import { useReactive } from 'ahooks'
+import React, { useEffect } from 'react'
+import axios from 'axios'
 
-const QaList = () => {
+interface Props {
+  subjectSlug: string
+  sortType: string
+  query: string
+  isFeatured: boolean
+  tags: string[]
+}
+
+const QaList: React.FC<Props> = ({ subjectSlug, sortType, query, isFeatured, tags }) => {
   const router = useRouter()
 
   const state = useReactive<{
-    discussList: DiscussItem[]
     pageSize: number
     total: number
-    subjectSlug: string
-    isFeatured: boolean
     pageNum: number
-    query: string
-    tags: string[]
-    sortType: string
+    discussList: DiscussItem[]
   }>({
-    discussList: [],
     pageSize: 0,
     total: 0,
-    subjectSlug: 'interview',
-    isFeatured: false,
     pageNum: 0,
-    query: '',
-    tags: [],
-    sortType: 'HOTTEST',
+    discussList: [],
   })
 
   const getQaList = () => {
     axios
       .post('/api/qaQuestionList', {
-        subjectSlug: state.subjectSlug,
-        isFeatured: state.isFeatured,
+        subjectSlug,
+        isFeatured,
         pageNum: state.pageNum,
-        query: state.query,
-        tags: state.tags,
-        sortType: state.sortType,
+        query,
+        tags,
+        sortType,
       })
       .then(res => {
         const data = res.data.data
@@ -54,7 +52,8 @@ const QaList = () => {
 
   useEffect(() => {
     getQaList()
-  }, [])
+  }, [sortType, subjectSlug, tags, query, isFeatured])
+
   return (
     <div className='mt-5'>
       {state.discussList.length ? (

@@ -1,7 +1,11 @@
 'use client'
 import { useReactive } from 'ahooks'
 
-const DiscussList = () => {
+interface Props {
+  setTrend: (sort: string, feat: boolean) => void
+}
+
+const DiscussList: React.FC<Props> = ({ setTrend }) => {
   const navs = [
     {
       name: '最热',
@@ -34,6 +38,8 @@ const DiscussList = () => {
                 borderBottom: state.currentIndex === index ? '2px solid #262626' : 'none',
               }}
               onClick={() => {
+                const feat = item.name === '最热' ? false : item.name === '最新' ? false : true
+                setTrend(item.value, feat)
                 state.currentIndex = index
               }}
             >
