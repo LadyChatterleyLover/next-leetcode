@@ -488,3 +488,41 @@ export interface ColumnsTagItem {
   slug: string
   __typename: string
 }
+
+export interface CompanyCard {
+  hotScore: number
+  id: string
+  isPremiumOnly: boolean
+  privilegeExpiresAt: string | null
+  __typename: string
+  acRate: number
+  companyInfo: {
+    companyTag: {
+      imgUrl: string
+      name: string
+      questionCount: number
+      slug: string
+      translatedName: string
+      __typename: string
+    }
+    jobCompany: {
+      isVerified: boolean
+      jobPostingCount: number
+      __typename: string
+    }
+    mostFreqQuestion: {
+      frontendId: string
+      title: string
+      titleCn: string
+      titleSlug: string
+      __typename: string
+    }
+    submissionUsers: {
+      realName: string
+      userAvatar: string
+      userSlug: string
+      __typename: string
+    }[]
+    submissionUserNum: number
+  }
+}
