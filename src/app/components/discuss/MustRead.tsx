@@ -55,7 +55,6 @@ const MustRead = () => {
       })
       .then(res => {
         state.trendingContentList = res.data.data
-        console.log('res', state.trendingContentList)
       })
   }
 
