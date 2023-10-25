@@ -526,3 +526,38 @@ export interface CompanyCard {
     submissionUserNum: number
   }
 }
+
+export interface Job {
+  chinaCity: string
+  chinaCityDisplay: string
+  companyLogo: string
+  companyName: string
+  companySlug: string
+  educationDisplay: string
+  hasApplyQualification: boolean
+  isHot: boolean
+  isRecommended: boolean
+  postingType: string
+  publishedAt: string
+  salaryDisplay: string
+  salaryMax: string | null
+  salaryMin: string | null
+  salaryNegotiable: boolean
+  shortlists: string[]
+  status: number
+  title: string
+  uuid: string
+  workExperienceDisplay: string
+  __typename: string
+}
+
+export interface JobArticle {
+  companyLogo: string
+  companyName: string
+  companyNameSlug: string
+  identifier: string
+  resourceType: string
+  summary: string
+  title: string
+  __typename: string
+}
