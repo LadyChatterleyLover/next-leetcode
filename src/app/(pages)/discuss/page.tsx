@@ -57,6 +57,10 @@ const Discuss = () => {
     state.query = val
   }
 
+  const setTags = (tags: string[]) => {
+    state.tags = tags
+  }
+
   useEffect(() => {
     getColumnsTag()
   }, [state.subjectSlug, state.query])
@@ -68,7 +72,7 @@ const Discuss = () => {
           <div className='flex-1'>
             <PicCard setSlug={setSlug}></PicCard>
             <Trend setTrend={setTrend} setQuery={setQuery}></Trend>
-            <ColumnsTag columnsTagList={state.columnsTagList}></ColumnsTag>
+            <ColumnsTag columnsTagList={state.columnsTagList} tags={state.tags} setTags={setTags}></ColumnsTag>
             <QaList
               subjectSlug={state.subjectSlug}
               sortType={state.sortType}
