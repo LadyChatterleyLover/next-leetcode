@@ -1,11 +1,14 @@
 'use client'
+import { EditOutlined } from '@ant-design/icons'
 import { useReactive } from 'ahooks'
+import { Input } from 'antd'
 
 interface Props {
   setTrend: (sort: string, feat: boolean) => void
+  setQuery: (val: string) => void
 }
 
-const DiscussList: React.FC<Props> = ({ setTrend }) => {
+const DiscussList: React.FC<Props> = ({ setTrend, setQuery }) => {
   const navs = [
     {
       name: '最热',
@@ -26,7 +29,7 @@ const DiscussList: React.FC<Props> = ({ setTrend }) => {
     currentIndex: 0,
   })
   return (
-    <div className='mt-5'>
+    <div className='mt-5 flex items-center justify-between'>
       <div className='flex items-center gap-x-8'>
         {navs.map((item, index) => {
           return (
@@ -47,6 +50,13 @@ const DiscussList: React.FC<Props> = ({ setTrend }) => {
             </div>
           )
         })}
+      </div>
+      <div className='flex gap-x-3 flex-1 justify-end'>
+        <Input.Search placeholder='搜索' style={{ width: 240 }} onSearch={setQuery}></Input.Search>
+        <div className='bg-[#2db55d] text-white text-sm flex items-center gap-x-2 rounded-full py-1 px-3 cursor-pointer'>
+          <EditOutlined></EditOutlined>
+          <div>发起讨论</div>
+        </div>
       </div>
     </div>
   )

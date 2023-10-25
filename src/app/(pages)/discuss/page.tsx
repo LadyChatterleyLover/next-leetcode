@@ -53,9 +53,13 @@ const Discuss = () => {
     state.subjectSlug = slug
   }
 
+  const setQuery = (val: string) => {
+    state.query = val
+  }
+
   useEffect(() => {
     getColumnsTag()
-  }, [state.subjectSlug])
+  }, [state.subjectSlug, state.query])
 
   return (
     <div className='w-full h-full bg-[#f7f8fa]'>
@@ -63,7 +67,7 @@ const Discuss = () => {
         <div className='flex gap-x-5'>
           <div className='flex-1'>
             <PicCard setSlug={setSlug}></PicCard>
-            <Trend setTrend={setTrend}></Trend>
+            <Trend setTrend={setTrend} setQuery={setQuery}></Trend>
             <ColumnsTag columnsTagList={state.columnsTagList}></ColumnsTag>
             <QaList
               subjectSlug={state.subjectSlug}
