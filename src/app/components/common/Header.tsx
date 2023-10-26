@@ -1,6 +1,5 @@
 'use client'
 
-import { localGet } from '@/app/utils/storage'
 import { SearchOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
@@ -8,7 +7,9 @@ import { useEffect, useState } from 'react'
 import { UserStatus } from '@/app/types'
 import { Avatar } from 'antd'
 import Link from 'next/link'
-import NavBar from './NavBar'
+import dynamic from 'next/dynamic'
+
+const NavBar = dynamic(() => import('./NavBar'), { ssr: false })
 
 const Header = () => {
   const router = useRouter()
@@ -70,7 +71,7 @@ const Header = () => {
           <NavBar></NavBar>
         </div>
         <div className='h-full flex items-center'>
-          <SearchOutlined style={{ fontSize: 20, color: '#0000008c' }}></SearchOutlined>
+          <SearchOutlined style={{ fontSize: 20, color: '#0000008c' }} className='mr-3'></SearchOutlined>
           <div>
             {user ? (
               <div className='flex items-center ml-1 cursor-pointer'>

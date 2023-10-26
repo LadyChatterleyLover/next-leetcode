@@ -3,7 +3,7 @@
 import React from 'react'
 
 const PanelCol = () => {
-  const pathname = window.location.href
+  const pathname = window.location.origin
   return (
     <div className='bg-[#f5f5f5] flex justify-center items-center pb-8'>
       <div className='flex flex-col mr-8'>

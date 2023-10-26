@@ -117,7 +117,7 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
                   <div
                     className='hover:text-[#40a9ff] font-bold'
                     onClick={() => {
-                      window.open(`${window.location.href}/tag/discuss/${item.contentUuid}`)
+                      window.open(`${window.location.origin}/tag/discuss/${item.contentUuid}`)
                     }}
                   >
                     {item.contentTitle}

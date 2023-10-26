@@ -561,3 +561,16 @@ export interface JobArticle {
   title: string
   __typename: string
 }
+
+export interface SaleItem {
+  category: string | null
+  coinValue: number
+  daysOfMembership: string | null
+  description: string
+  isVirtual: boolean
+  name: string
+  slug: string
+  images: string[]
+  specs: string[]
+  __typename: string
+}
