@@ -106,11 +106,12 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
         endMessage={<Divider plain>已经到底啦 🤐</Divider>}
         scrollableTarget='scrollableDiv'
+        key='id'
       >
         {state.homeFeedPlainContents.map((item, index) => {
           return (
-            <>
-              <div key={index} className='flex gap-x-2  cursor-pointer'>
+            <div key={index}>
+              <div className='flex gap-x-2  cursor-pointer'>
                 <Avatar size={28} src={item.authorAvatarUrl}></Avatar>
                 <div className='flex flex-col gap-2 flex-1'>
                   <div className='text-sm text-[#0000008c]'>{item.authorNickname}</div>
@@ -133,7 +134,7 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
                 ) : null}
               </div>
               <Divider></Divider>
-            </>
+            </div>
           )
         })}
         <div className='flex gap-x-3'>
@@ -152,9 +153,9 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
               </div>
             </div>
             <div className='flex gap-x-3'>
-              {state.homeFeedProblems?.solutions.map(solution => {
+              {state.homeFeedProblems?.solutions.map((solution, index) => {
                 return (
-                  <div key={solution.id} className='flex flex-col gap-y-2 bg-[#00000005] p-2 cursor-pointer'>
+                  <div key={index} className='flex flex-col gap-y-2 bg-[#00000005] p-2 cursor-pointer'>
                     <div className='flex items-center gap-x-2'>
                       <Avatar src={solution.authorAvatarUrl} size={16}></Avatar>
                       <div className='text-xs text-[#00000057]'>{solution.title}</div>
@@ -187,10 +188,10 @@ const PlanList: React.FC<Props> = ({ currentId }) => {
               </div>
             </div>
             <div className='flex gap-3 flex-wrap'>
-              {state.homeFeedCompanies.map(item => {
+              {state.homeFeedCompanies.map((item, index) => {
                 return (
                   <div
-                    key={item.slug}
+                    key={index}
                     className='mx-2 inline-block h-[80px] w-[160px] cursor-pointer rounded-lg p-3  bg-[#0000000a] hover:bg-[#0000000f]'
                   >
                     <div className='flex items-center gap-x-3 mb-5'>
