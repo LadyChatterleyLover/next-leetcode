@@ -42,10 +42,10 @@ const Ads = () => {
   }, [])
 
   return (
-    <div className='flex gap-x-5'>
+    <div className='flex gap-x-5 w-full'>
       <div className='flex cursor-pointer'>
         <div
-          className='w-[490px] h-[114px] flex m-2 items-center rounded-xl p-4 relative'
+          className='flex-1 h-[114px] flex m-2 items-center rounded-xl p-4 relative'
           style={{
             background: 'url(https://static.leetcode.cn/cn-mono-assets/production/assets/custom-01.ae58640a.png)',
           }}
@@ -72,7 +72,7 @@ const Ads = () => {
           </div>
         </div>
         {state.adList.length ? (
-          <div className='w-[490px] h-[114px] flex m-2 items-center rounded-xl p-4'>
+          <div className='flex-1 h-[114px] flex m-2 items-center rounded-xl p-4'>
             <Carousel {...settings}>
               {state.adList.map(item => {
                 return (
