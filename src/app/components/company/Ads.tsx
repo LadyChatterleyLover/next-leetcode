@@ -22,6 +22,7 @@ const settings = {
   infiniteLoop: true,
   showArrows: false,
   showThumbs: false,
+  showStatus: false,
 }
 
 const Ads = () => {
