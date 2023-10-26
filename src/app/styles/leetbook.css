@@ -133,25 +133,34 @@
   max-width: 100%;
 }
 
-.leetbook-info table {
+.leetbook-info table,
+.discussDetail table {
   padding: 0px;
   border-collapse: collapse;
   width: 100%;
   table-layout: fixed;
 }
 
-.leetbook-info table tr {
+.leetbook-info table tr,
+.discussDetail table tr {
   border-top: 1px solid #bfbfbf;
   margin: 0;
   background: #fff;
 }
-.leetbook-info table th {
+.leetbook-info table th,
+.discussDetail table th {
   font-weight: bold;
 }
 
 .leetbook-info table th,
-.leetbook-info table td {
+.leetbook-info table td,
+.discussDetail table th,
+.discussDetail table td {
   border: 1px solid #bfbfbf;
   margin: 0px;
   padding: 6px 13px;
+}
+
+.discussDetail img {
+  width: 100%;
 }

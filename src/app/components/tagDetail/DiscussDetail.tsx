@@ -3,6 +3,8 @@ import dayjs from 'dayjs'
 import { BellOutlined, EditOutlined, LikeOutlined, ShareAltOutlined, StarOutlined } from '@ant-design/icons'
 import Markdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
+import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import { DiscussItem } from '@/app/types'
 
 interface Props {
@@ -35,8 +37,10 @@ const DiscussDetail: React.FC<Props> = ({ detail }) => {
           <div className='w-1 h-1 rounded-full bg-[#bfbfbf]'></div>
           <div>来自于 {detail?.ipRegion}</div>
         </div>
-        <div className='leading-10 mt-5 text-justify w-full' style={{ wordBreak: 'break-word' }}>
-          <Markdown rehypePlugins={[rehypeHighlight]}>{detail?.content}</Markdown>
+        <div className='leading-10 mt-5 text-justify w-full discussDetail' style={{ wordBreak: 'break-word' }}>
+          <Markdown rehypePlugins={[rehypeRaw, rehypeHighlight]} remarkPlugins={[remarkGfm]}>
+            {detail?.content}
+          </Markdown>
         </div>
         <div className='mt-3 bg-[#eee] h-[1px]'></div>
         <div className='flex items-center justify-between'>
