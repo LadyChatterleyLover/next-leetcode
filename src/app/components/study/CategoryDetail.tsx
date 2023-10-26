@@ -48,7 +48,7 @@ const CategoryDetail: React.FC<Props> = ({ bookList }) => {
                           span={8}
                           className='mb-5'
                           onClick={() => {
-                            window.open(`${window.location.origin}leetbook/${book.slug}`)
+                            window.open(`${window.location.origin}/leetbook/${book.slug}`)
                           }}
                         >
                           <Card hoverable>
