@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[github地址](https://github.com/LadyChatterleyLover/next-leetcode)，欢迎star。  
+[预览地址](https://next-leetcode-bay.vercel.app/)，接口可能不太稳定，如没请求成功，多刷新几次就好。
+## 起因
+本来技术栈一直都是`vue`，`react`没有做过大型项目，正好无疑在B站看到有人搬运国外的`nextjs`的教程，对`next.js`突然就很感兴趣，决定用它来做一个大型的项目，而做这个项目有两个最初的想法：  
+1. 和程序员相关的网站
+2. 最好有现成的接口，虽然也会`nest.js`，但不想花时间写接口，单纯的想偷懒。
 
-## Getting Started
+后面逛`leetcode`的时候，心血来潮的打开控制台看了一下接口，发现`leetcode`的网站全是用的`graphql`，可以直接获取到数据，于是决定复刻`leetcode`。
 
-First, run the development server:
+## 踩坑
+1. `next.js`用的`app router`模式，所有组件都是在`server`端渲染，如果需要用到和`react`相关的，比如生命周期等，需要在组件文件顶部写`use client`,将其变为客户端组件。
+2. 如果组件用到`window`变量，引入组件的时候需要使用`dynamic`引入，要不然本地没关系，打包就会报错。
+3. 目录式结构还是比较香的，省去了很多配置，但前提是要掌握好规则，特别是路由这块，反正我不是很喜欢`react-router`原生的写法。
+4. 很多同学纠结说我没有`ssr`的需求，是不是不需要`next.js`?其实你完全可以不把它当做一个`ssr`框架，就把它当成一个封装好的脚手架，是真的好用，而且就算你全部用客户端组件，对项目也是没有任何影响。
+5. 项目中所有的数据状态都是用的`ahooks`的`useReactive`，这个简直是香中香，我是完全抛弃了`useState`，坑太多，`useReactive`完全和`vue`一样的体验，所见即所得，太方便，省去了很多不必要的赋值陷阱。
+6. 状态管理用得是`zustand`，目前来看应该是最好用的`react`的状态管理工具了，如果你之前是`vue`技术栈，那这个库基本上和`vue`、`pinia`区别不大，可以直接上手。
+7. 样式用的`next.js`直接集成的`tailwindcss`，反正我现在是离不开它了，可以覆盖大部分样式。
+8. 本项目线上不支持用户相关类操作，因为需要`leetcode`提供的`token`，如果想调用用户类相关接口，需要在`leetcode`网站登录成功之后，在控制台请求头中获取`csrftoken`和`LEETCODE_SESSION`.
+9. `next.js`作为一个全栈框架，可以不需要后端，直接写接口，然后调接口获取数据，这点还是很方便的，甚至可以直接链接数据库操作数据。
+10. 项目中`markdown`部分开始直接用的`react-markdown`这个插件，但不知道是不是我用的姿势不对，有些格式没有解析出来，知道的同学可以讲一下。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 总结
+1. 学习一个新框架最好的老师就是官方文档，当然不排除有些项目的文档写的不好，但这种知名大公司的项目，文档还是很清晰，跟着文档做，肯定是没错的。
+2. 学习一个新框架，直接动手做项目，别做`demo`级别的，什么`todolist`啊，意义不大，必须要经过长时间的实践和踩坑才能掌握精髓，这个项目大概花了十天时间，还是很值得的。
+3. 不要有畏难情绪，现在网上资料也很多，绝大部分问题都能解决。
+4. `next.js`确实是一个好框架，值得学习
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 免责生命
+本项目所有接口均来自`leetcode`官网，仅供个人学习，切勿用作商业用途，如产生一切纠纷，均与本人无关。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 最后
+大家有什么问题，都可以一起交流学习。
